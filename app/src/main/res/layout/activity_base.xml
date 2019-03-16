@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
         android:id="@+id/content"
@@ -11,9 +12,11 @@
         android:id="@+id/wait"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/dim"
         android:clickable="true"
         android:focusable="true"
-        android:visibility="gone">
+        android:visibility="gone"
+        tools:visibility="visible">
 
         <ProgressBar
             android:layout_width="wrap_content"

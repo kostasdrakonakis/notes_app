@@ -80,6 +80,4 @@ abstract class BaseMVPActivity<V : IActivityView, P : IActivityPresenter<V>> : A
     protected fun getPresenter(): P {
         return presenter
     }
-
-
 }

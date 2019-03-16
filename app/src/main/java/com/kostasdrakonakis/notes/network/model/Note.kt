@@ -7,7 +7,7 @@ class Note {
 
     @SerializedName("id")
     @Expose
-    val id: String? = null
+    val id: Int? = 0
 
     @SerializedName("title")
     @Expose

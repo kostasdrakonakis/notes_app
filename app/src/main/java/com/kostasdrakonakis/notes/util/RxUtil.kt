@@ -1,6 +1,7 @@
 package com.kostasdrakonakis.notes.util
 
 import android.support.annotation.NonNull
+import io.reactivex.CompletableTransformer
 import io.reactivex.Single
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -12,7 +13,18 @@ object Singles {
 
     fun <T> setSchedulers(): SingleTransformer<T, T> {
         return SingleTransformer { upstream ->
-            upstream.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+            upstream.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+        }
+    }
+}
+
+object Completables {
+
+    fun setSchedulers(): CompletableTransformer {
+        return CompletableTransformer { upstream ->
+            upstream.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
         }
     }
 }
