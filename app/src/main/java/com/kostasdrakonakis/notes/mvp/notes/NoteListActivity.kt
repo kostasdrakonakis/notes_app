@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView
 import android.text.TextUtils
 import android.view.View
 import android.widget.LinearLayout.VERTICAL
-import android.widget.RelativeLayout
 import com.github.kostasdrakonakis.androidnavigator.IntentNavigator
 import com.kostasdrakonakis.notes.R
 import com.kostasdrakonakis.notes.android.activity.BaseMVPActivity
@@ -20,7 +19,6 @@ class NoteListActivity : BaseMVPActivity<MVPNotesList.View, MVPNotesList.Present
     private lateinit var adapter: NotesAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var errorView: View
-    private lateinit var rootContainer: RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +26,6 @@ class NoteListActivity : BaseMVPActivity<MVPNotesList.View, MVPNotesList.Present
         adapter = NotesAdapter(this)
         recyclerView = findViewById(R.id.notes_recycler)
         errorView = findViewById(R.id.error_text)
-        rootContainer = findViewById(R.id.root_container)
         recyclerView.layoutManager = LinearLayoutManager(this, VERTICAL, false)
         recyclerView.adapter = adapter
         findViewById<FloatingActionButton>(R.id.create_note_button).setOnClickListener {

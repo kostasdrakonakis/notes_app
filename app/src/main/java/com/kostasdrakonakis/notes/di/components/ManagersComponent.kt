@@ -10,6 +10,4 @@ import javax.inject.Singleton
 @Component(modules = [NetworkModule::class, ManagersModule::class])
 interface ManagersComponent {
     fun inject(managers: Managers)
-
-    fun inject(managersModule: ManagersModule)
 }

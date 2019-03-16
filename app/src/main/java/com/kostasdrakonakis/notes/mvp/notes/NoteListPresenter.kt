@@ -32,7 +32,7 @@ class NoteListPresenter : ActivityPresenter<MVPNotesList.View>(),
     }
 
     override fun onCreateSubmit(text: String) {
-        noteManager.createNote(text, createListener)
+        addDisposable(noteManager.createNote(text, createListener))
     }
 
     override fun onSuccess(data: List<Note>?) {
@@ -64,18 +64,20 @@ class NoteListPresenter : ActivityPresenter<MVPNotesList.View>(),
 
     private val createListener = object : NoteManager.Callback<Note> {
         override fun onSuccess(data: Note?) {
-            val presentationModel: MVPNotesList.PresentationModel = MVPNotesList.PresentationModel()
-            presentationModel.id = data?.id
-            presentationModel.title = data?.title
+            if (!TextUtils.isEmpty(data?.title)) {
+                val presentationModel: MVPNotesList.PresentationModel = MVPNotesList.PresentationModel()
+                presentationModel.id = data?.id
+                presentationModel.title = data?.title
 
-            val view = getView()
-            if (!TextUtils.isEmpty(presentationModel.title)) {
                 presentationModels.add(presentationModel)
+                val view = getView()
                 view?.showNotes(presentationModels)
             }
         }
 
         override fun onFailure(throwable: Throwable?) {
+            val view = getView()
+            view?.showError(throwable?.message)
         }
     }
 }
