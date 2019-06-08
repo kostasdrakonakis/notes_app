@@ -1,12 +1,12 @@
 package com.kostasdrakonakis.notes.di.modules
 
-import android.support.annotation.Nullable
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.kostasdrakonakis.notes.BuildConfig
 import com.kostasdrakonakis.notes.network.api.NotesApi
 import dagger.Module
 import dagger.Provides
+import io.reactivex.annotations.Nullable
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

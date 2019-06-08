@@ -11,7 +11,7 @@ import javax.inject.Inject
 class NoteManagerImpl @Inject constructor(private val apiProvider: ApiProvider) : NoteManager {
 
     override fun createNote(title: String, callback: NoteManager.Callback<Note>): Disposable {
-        return apiProvider.getNotesApi().createNote(NoteBody(title))
+        return apiProvider.notesApi.createNote(NoteBody(title))
             .compose(Singles.setSchedulers())
             .subscribe { note, throwable ->
                 if (note != null) callback.onSuccess(note)
@@ -20,7 +20,7 @@ class NoteManagerImpl @Inject constructor(private val apiProvider: ApiProvider) 
     }
 
     override fun getNote(id: Int, callback: NoteManager.Callback<Note>): Disposable {
-        return apiProvider.getNotesApi().getNote(id)
+        return apiProvider.notesApi.getNote(id)
             .compose(Singles.setSchedulers())
             .subscribe { note, throwable ->
                 if (note != null) callback.onSuccess(note)
@@ -29,7 +29,7 @@ class NoteManagerImpl @Inject constructor(private val apiProvider: ApiProvider) 
     }
 
     override fun editNote(id: Int, title: String, callback: NoteManager.Callback<Note>): Disposable {
-        return apiProvider.getNotesApi().editNote(id)
+        return apiProvider.notesApi.editNote(id)
             .compose(Singles.setSchedulers())
             .subscribe { note, throwable ->
                 if (note != null) callback.onSuccess(note)
@@ -38,13 +38,13 @@ class NoteManagerImpl @Inject constructor(private val apiProvider: ApiProvider) 
     }
 
     override fun deleteNote(id: Int): Disposable {
-        return apiProvider.getNotesApi().deleteNote(id)
+        return apiProvider.notesApi.deleteNote(id)
             .compose(Completables.setSchedulers())
             .subscribe()
     }
 
     override fun getNotes(callback: NoteManager.Callback<List<Note>>): Disposable {
-        return apiProvider.getNotesApi().getNotes()
+        return apiProvider.notesApi.getNotes()
             .compose(Singles.setSchedulers())
             .subscribe { t1: List<Note>?, t2: Throwable? ->
                 if (t1 != null) callback.onSuccess(t1)

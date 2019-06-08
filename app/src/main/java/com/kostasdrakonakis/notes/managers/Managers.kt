@@ -18,7 +18,7 @@ class Managers private constructor() {
     companion object {
         lateinit var instance: Managers
 
-        val getNoteManager: NoteManager get() = instance.noteManager
+        val noteManager: NoteManager get() = instance.noteManager
 
         fun initData(app: Application) {
             instance = Managers()

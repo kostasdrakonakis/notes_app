@@ -48,11 +48,13 @@ class NoteLogger constructor(private val cls: Class<*>) : MarkerIgnoringBase(), 
     }
 
     override fun trace(format: String, arg1: Any, arg2: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.v(format, arg1, arg2)
     }
 
     override fun trace(format: String, vararg arguments: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.v(format, arguments)
     }
 
     override fun trace(message: String, throwable: Throwable?) {
@@ -89,15 +91,18 @@ class NoteLogger constructor(private val cls: Class<*>) : MarkerIgnoringBase(), 
     }
 
     override fun warn(format: String, arg: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.w(format, arg)
     }
 
     override fun warn(format: String, vararg arguments: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.w(format, arguments)
     }
 
     override fun warn(format: String, arg1: Any, arg2: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.w(format, arg1, arg2)
     }
 
     override fun warn(message: String, throwable: Throwable?) {
@@ -114,15 +119,18 @@ class NoteLogger constructor(private val cls: Class<*>) : MarkerIgnoringBase(), 
     }
 
     override fun debug(format: String, arg: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.d(format, arg)
     }
 
     override fun debug(format: String, arg1: Any, arg2: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.d(format, arg1, arg2)
     }
 
     override fun debug(format: String, vararg arguments: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.d(format, arguments)
     }
 
     override fun debug(message: String, throwable: Throwable?) {
@@ -139,15 +147,18 @@ class NoteLogger constructor(private val cls: Class<*>) : MarkerIgnoringBase(), 
     }
 
     override fun info(format: String, arg: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.i(format, arg)
     }
 
     override fun info(format: String, arg1: Any, arg2: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.i(format, arg1, arg2)
     }
 
     override fun info(format: String, vararg arguments: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.i(format, arguments)
     }
 
     override fun info(message: String, throwable: Throwable?) {
@@ -164,15 +175,18 @@ class NoteLogger constructor(private val cls: Class<*>) : MarkerIgnoringBase(), 
     }
 
     override fun error(format: String, arg: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.e(format, arg)
     }
 
     override fun error(format: String, arg1: Any, arg2: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.e(format, arg1, arg2)
     }
 
     override fun error(format: String, vararg arguments: Any) {
-        throw IllegalArgumentException("Not implemented yet")
+        tag()
+        Timber.e(format, arguments)
     }
 
     override fun error(message: String, throwable: Throwable?) {

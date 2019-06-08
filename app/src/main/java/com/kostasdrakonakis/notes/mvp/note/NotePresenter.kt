@@ -8,7 +8,7 @@ import com.kostasdrakonakis.notes.network.model.Note
 class NotePresenter : ActivityPresenter<MVPNote.View>(), MVPNote.Presenter, NoteManager.Callback<Note> {
 
     private var noteId: Int = 0
-    private val noteManager: NoteManager = Managers.getNoteManager
+    private val noteManager: NoteManager = Managers.noteManager
 
     override fun onViewAttached(view: MVPNote.View) {
         view.showWaiting(true)

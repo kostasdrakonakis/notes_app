@@ -1,10 +1,10 @@
 package com.kostasdrakonakis.notes.util
 
-import android.support.annotation.NonNull
 import io.reactivex.CompletableTransformer
 import io.reactivex.Single
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.annotations.NonNull
 import io.reactivex.schedulers.Schedulers
 import retrofit2.Response
 import java.io.IOException
