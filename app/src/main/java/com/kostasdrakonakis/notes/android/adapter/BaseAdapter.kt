@@ -1,8 +1,8 @@
 package com.kostasdrakonakis.notes.android.adapter
 
 import android.os.Handler
-import android.support.v7.widget.RecyclerView
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
 
 abstract class BaseAdapter<T, V : View> : RecyclerView.Adapter<BaseAdapter.BaseViewHolder<V>>() {
 

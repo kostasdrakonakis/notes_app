@@ -7,7 +7,7 @@ import org.slf4j.Logger
 
 object LogUtil {
 
-    private val MSG_LOG_STARTED = ("\n"
+    private const val MSG_LOG_STARTED = ("\n"
             + "************************************************\n"
             + "LOGGER STARTED\n"
             + "Package name: " + BuildConfig.APPLICATION_ID + "\n"

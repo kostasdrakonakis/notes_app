@@ -1,43 +1,35 @@
 package com.kostasdrakonakis.notes.mvp.notes
 
 import android.os.Bundle
-import android.support.design.widget.FloatingActionButton
-import android.support.design.widget.TextInputEditText
-import android.support.v7.app.AlertDialog
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.text.TextUtils
 import android.view.View
-import android.widget.LinearLayout.VERTICAL
+import androidx.appcompat.app.AlertDialog
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.github.kostasdrakonakis.androidnavigator.IntentNavigator
 import com.kostasdrakonakis.notes.R
 import com.kostasdrakonakis.notes.android.activity.BaseMVPActivity
+import com.kostasdrakonakis.notes.mvp.notes.model.PresentationModel
+import kotlinx.android.synthetic.main.activity_notes_list.*
+import kotlinx.android.synthetic.main.create_note.view.*
 
 class NoteListActivity : BaseMVPActivity<MVPNotesList.View, MVPNotesList.Presenter>(), MVPNotesList.View,
     NotesAdapter.NoteListener {
 
-    private lateinit var adapter: NotesAdapter
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var errorView: View
+    private val adapter: NotesAdapter by lazy { NotesAdapter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes_list)
-        adapter = NotesAdapter(this)
-        recyclerView = findViewById(R.id.notes_recycler)
-        errorView = findViewById(R.id.error_text)
         recyclerView.layoutManager = LinearLayoutManager(this, VERTICAL, false)
         recyclerView.adapter = adapter
-        findViewById<FloatingActionButton>(R.id.create_note_button).setOnClickListener {
-            getPresenter().onCreateButtonClicked()
-        }
+        createButton.setOnClickListener { presenter.onCreateButtonClicked() }
     }
 
     override fun createPresenter(): MVPNotesList.Presenter {
         return NoteListPresenter()
     }
 
-    override fun showNotes(data: List<MVPNotesList.PresentationModel>) {
+    override fun showNotes(data: List<PresentationModel>) {
         errorView.visibility = View.GONE
         recyclerView.visibility = View.VISIBLE
         adapter.setItems(data)
@@ -54,23 +46,21 @@ class NoteListActivity : BaseMVPActivity<MVPNotesList.View, MVPNotesList.Present
     }
 
     override fun onNoteClicked(noteId: Int?) {
-        getPresenter().onNoteClicked(noteId)
+        presenter.onNoteClicked(noteId)
     }
 
     override fun showCreateDialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         builder.setTitle(R.string.create_note)
-        val view: View = layoutInflater.inflate(R.layout.create_note, null)
-        val inputText: TextInputEditText = view.findViewById(R.id.note_text)
+        val view: View = layoutInflater.inflate(R.layout.create_note, null, false)
         builder.setView(view)
         builder.setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
-        builder.setPositiveButton(R.string.create) { dialog, _ ->
+        builder.setPositiveButton(R.string.create) { _, _ ->
             run {
-                val text: String = inputText.text.toString()
-                if (!TextUtils.isEmpty(text)) getPresenter().onCreateSubmit(text)
+                val text: String = view.inputText.text.toString()
+                if (!isEmpty(text)) presenter.onCreateSubmit(text)
             }
         }
-        val alertDialog: AlertDialog = builder.create()
-        alertDialog.show()
+        builder.create().show()
     }
 }

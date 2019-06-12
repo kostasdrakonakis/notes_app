@@ -7,22 +7,22 @@ import org.slf4j.Logger
 import java.lang.ref.WeakReference
 
 abstract class AbstractPresenter<V : IView> : IPresenter<V> {
-    private var view: WeakReference<V>? = null
+    private var mView: WeakReference<V>? = null
     private lateinit var compositeDisposable: CompositeDisposable
     protected val logger: Logger = LogUtil.getLogger(javaClass)
 
     override fun attachView(view: V) {
-        this.view = WeakReference(view)
+        this.mView = WeakReference(view)
         compositeDisposable = CompositeDisposable()
         onViewAttached(view)
     }
 
     override fun detachView(view: V) {
-        if (view != this.view?.get()) {
-            throw IllegalStateException("Detaching illegal view")
+        if (view != this.mView?.get()) {
+            throw IllegalStateException("Detaching illegal mView")
         }
 
-        this.view = null
+        this.mView = null
         onViewDetached(view)
         dispose()
     }
@@ -31,9 +31,7 @@ abstract class AbstractPresenter<V : IView> : IPresenter<V> {
 
     protected abstract fun onViewDetached(view: V)
 
-    protected fun getView(): V? {
-        return view?.get()
-    }
+    protected val view: V? get() = mView?.get()
 
     protected fun addDisposable(disposable: Disposable) {
         compositeDisposable.add(disposable)

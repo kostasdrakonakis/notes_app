@@ -1,11 +1,13 @@
 package com.kostasdrakonakis.notes.android.activity
 
 import android.os.Bundle
-import android.support.annotation.LayoutRes
-import android.support.v7.app.AppCompatActivity
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import androidx.annotation.LayoutRes
+import androidx.annotation.Nullable
+import androidx.appcompat.app.AppCompatActivity
 import com.kostasdrakonakis.notes.R
 import com.kostasdrakonakis.notes.mvp.IActivityPresenter
 import com.kostasdrakonakis.notes.mvp.IActivityView
@@ -16,7 +18,7 @@ abstract class BaseMVPActivity<V : IActivityView, P : IActivityPresenter<V>> : A
 
     private var content: FrameLayout? = null
     private var wait: View? = null
-    private lateinit var presenter: P
+    private lateinit var mPresenter: P
 
     protected val logger: Logger = LogUtil.getLogger(javaClass)
 
@@ -30,21 +32,21 @@ abstract class BaseMVPActivity<V : IActivityView, P : IActivityPresenter<V>> : A
 
         wait = findViewById(R.id.wait)
 
-        presenter = createPresenter()
+        mPresenter = createPresenter()
     }
 
     override fun onStart() {
         super.onStart()
-        presenter.attachView(this as V)
+        mPresenter.attachView(this as V)
     }
 
     override fun onStop() {
         super.onStop()
-        presenter.detachView(this as V)
+        mPresenter.detachView(this as V)
     }
 
     override fun finish() {
-        presenter.onClose()
+        mPresenter.onClose()
     }
 
     override fun setContentView(@LayoutRes id: Int) {
@@ -77,7 +79,9 @@ abstract class BaseMVPActivity<V : IActivityView, P : IActivityPresenter<V>> : A
 
     protected abstract fun createPresenter(): P
 
-    protected fun getPresenter(): P {
-        return presenter
+    protected val presenter: P get() = mPresenter
+
+    protected fun AppCompatActivity.isEmpty(@Nullable value: String?): Boolean {
+        return TextUtils.isEmpty(value)
     }
 }

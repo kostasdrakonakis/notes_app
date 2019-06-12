@@ -4,5 +4,5 @@ import com.kostasdrakonakis.notes.network.api.NotesApi
 
 interface ApiProvider {
 
-    fun getNotesApi(): NotesApi
+    val notesApi: NotesApi
 }

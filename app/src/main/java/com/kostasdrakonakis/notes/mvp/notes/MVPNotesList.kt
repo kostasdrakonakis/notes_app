@@ -2,6 +2,7 @@ package com.kostasdrakonakis.notes.mvp.notes
 
 import com.kostasdrakonakis.notes.mvp.IActivityPresenter
 import com.kostasdrakonakis.notes.mvp.IActivityView
+import com.kostasdrakonakis.notes.mvp.notes.model.PresentationModel
 
 interface MVPNotesList {
     interface View : IActivityView {
@@ -14,16 +15,11 @@ interface MVPNotesList {
         fun showCreateDialog()
     }
 
-    interface Presenter : IActivityPresenter<MVPNotesList.View> {
+    interface Presenter : IActivityPresenter<View> {
         fun onNoteClicked(noteId: Int?)
 
         fun onCreateButtonClicked()
 
         fun onCreateSubmit(text: String)
-    }
-
-    class PresentationModel {
-        var id: Int? = 0
-        var title: String? = null
     }
 }
