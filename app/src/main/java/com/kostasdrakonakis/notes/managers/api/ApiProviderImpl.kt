@@ -4,8 +4,5 @@ import com.kostasdrakonakis.notes.network.api.NotesApi
 import javax.inject.Inject
 
 class ApiProviderImpl @Inject constructor(private val mNotesApi: NotesApi) : ApiProvider {
-    override val notesApi: NotesApi
-        get() {
-            return mNotesApi
-        }
+    override val notesApi: NotesApi get() = mNotesApi
 }

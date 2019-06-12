@@ -21,7 +21,6 @@ class NoteActivity : BaseMVPActivity<MVPNote.View, MVPNote.Presenter>(), MVPNote
         setContentView(R.layout.activity_note)
         IntentNavigatorBinder.bind(this)
         presenter.setData(noteId)
-        logger.error("Note Activity noteId: " + noteId.toString())
     }
 
     override fun createPresenter(): MVPNote.Presenter {

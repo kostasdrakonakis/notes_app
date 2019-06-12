@@ -1,10 +1,12 @@
 package com.kostasdrakonakis.notes.android.activity
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.annotation.LayoutRes
+import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
 import com.kostasdrakonakis.notes.R
 import com.kostasdrakonakis.notes.mvp.IActivityPresenter
@@ -77,8 +79,9 @@ abstract class BaseMVPActivity<V : IActivityView, P : IActivityPresenter<V>> : A
 
     protected abstract fun createPresenter(): P
 
-    protected val presenter: P
-        get() {
-            return mPresenter
-        }
+    protected val presenter: P get() = mPresenter
+
+    protected fun AppCompatActivity.isEmpty(@Nullable value: String?): Boolean {
+        return TextUtils.isEmpty(value)
+    }
 }

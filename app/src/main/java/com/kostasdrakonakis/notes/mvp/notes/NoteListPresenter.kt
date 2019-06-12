@@ -23,11 +23,11 @@ class NoteListPresenter : ActivityPresenter<MVPNotesList.View>(),
     }
 
     override fun onNoteClicked(noteId: Int?) {
-        getView()?.openNote(noteId)
+        view?.openNote(noteId)
     }
 
     override fun onCreateButtonClicked() {
-        getView()?.showCreateDialog()
+        view?.showCreateDialog()
     }
 
     override fun onCreateSubmit(text: String) {
@@ -35,7 +35,6 @@ class NoteListPresenter : ActivityPresenter<MVPNotesList.View>(),
     }
 
     override fun onSuccess(data: List<Note>?) {
-        val view = getView()
         view?.showWaiting(false)
 
         presentationModels.clear()
@@ -56,7 +55,6 @@ class NoteListPresenter : ActivityPresenter<MVPNotesList.View>(),
     }
 
     override fun onFailure(throwable: Throwable?) {
-        val view = getView()
         view?.showWaiting(false)
         view?.showError(throwable?.message)
     }
@@ -69,12 +67,12 @@ class NoteListPresenter : ActivityPresenter<MVPNotesList.View>(),
                 presentationModel.title = data?.title
 
                 presentationModels.add(presentationModel)
-                getView()?.showNotes(presentationModels)
+                view?.showNotes(presentationModels)
             }
         }
 
         override fun onFailure(throwable: Throwable?) {
-            getView()?.showError(throwable?.message)
+            view?.showError(throwable?.message)
         }
     }
 }
