@@ -1,0 +1,26 @@
+ext {
+    androidConfig = [
+            minSdkVersion    : 23,
+            targetSdkVersion : 28,
+            compileSdkVersion: 28
+    ]
+
+    environments = [
+            alpha     : "alpha",
+            staging   : "staging",
+            production: "production"
+    ]
+
+    variables = [
+            keyStore        : "gitlab_keyStorePath",
+            keyStorePassword: "gitlab_keyStorePassword",
+            keyPassword     : "gitlab_keyPassword",
+            keyAlias        : "gitlab_keyAlias",
+
+            majorVersion    : "gitlab_majorVersion",
+            minorVersion    : "gitlab_minorVersion",
+            patchVersion    : "gitlab_patchVersion",
+            buildNumber     : "gitlab_buildNumber",
+            versionName     : "gitlab_versionName"
+    ]
+}
