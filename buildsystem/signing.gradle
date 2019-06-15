@@ -1,0 +1,64 @@
+ext {
+    def variables = rootProject.ext.variables
+
+    keystoreValue = variables.keyStore
+    keystorePasswordValue = variables.keyStorePassword
+    keyPasswordValue = variables.keyPassword
+    keyAliasValue = variables.keyAlias
+}
+
+def getKeystore() {
+    return getValue(keystoreValue, 'RELEASE_KEY_PATH', true)
+}
+
+def getKeystorePassword() {
+    return getValue(keystorePasswordValue, 'RELEASE_KEYSTORE_PASSWORD')
+}
+
+def getKeyPassword() {
+    return getValue(keyPasswordValue, 'RELEASE_KEY_PASSWORD')
+}
+
+def getKeyAlias() {
+    return getValue(keyAliasValue, 'RELEASE_KEY_ALIAS')
+}
+
+def getValue(String name, String defaultValue, boolean isFile = false) {
+    String localVariable = null
+
+    if (project.rootProject.file('local.properties').exists()) {
+        println("Loading local.properties")
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+        localVariable = properties.getProperty(defaultValue)
+    }
+
+    def ciVariable = System.getProperty(name)
+
+    if (isNotEmpty(ciVariable)) {
+        println("Using release key config from CI")
+        return isFile ? file(ciVariable) : ciVariable
+    } else if (isNotEmpty(localVariable)) {
+        println("Using release key config from local.properties")
+        return isFile ? file(localVariable) : localVariable
+    }
+}
+
+static def isNotEmpty(String value) {
+    return value != null && !value.isEmpty()
+}
+
+ext.keystoreFilePath = {
+    return getKeystore()
+}
+ext.keystorePassword = {
+    return getKeystorePassword()
+}
+ext.keyPassword = {
+    return getKeyPassword()
+}
+ext.keyAlias = {
+    return getKeyAlias()
+}
+

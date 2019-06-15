@@ -1,0 +1,60 @@
+ext {
+    def variables = rootProject.ext.variables
+    // env variables
+    major = variables.majorVersion
+    minor = variables.minorVersion
+    patch = variables.patchVersion
+    build = variables.buildNumber
+    vName = variables.versionName
+}
+
+def getBuildNumber() {
+    return getValue(build, defaultBuildNumber)
+}
+
+def getMajorVersion() {
+    return getValue(major, defaultMajorVersion)
+}
+
+def getMinorVersion() {
+    return getValue(minor, defaultMinorVersion)
+}
+
+def getPatchVersion() {
+    return getValue(patch, defaultPatchVersion)
+}
+
+def getVersionName() {
+    return getValue(vName, defaultVersionName)
+}
+
+def getValue(String name, String defaultValue) {
+    String result
+    String envValue = System.getenv(name)
+
+    if (envValue != null) {
+        logger.warn("Override the property '" + (name - "gitlab_") + "' with the gitlab value : '${envValue}'")
+        result = envValue
+    } else {
+        result = defaultValue == null ? "0" : defaultValue
+    }
+
+    return result
+}
+
+String getAppVersion() {
+    String major = getMajorVersion()
+    String minor = getMinorVersion()
+    String patch = getPatchVersion()
+    String build = getBuildNumber()
+    return "${major}.${minor}.${patch}.${build}"
+}
+
+int getVersionCode() {
+    return (vCode as int) * 1000000 + (getBuildNumber() as int)
+}
+
+allprojects {
+    ext.set("AppVersionName", getAppVersion())
+    ext.set("AppVersionCode", getVersionCode())
+}

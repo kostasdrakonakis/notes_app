@@ -1,0 +1,118 @@
+ext {
+    //Android libraries
+    appCompat = '1.0.2'
+    recyclerView = '1.0.0'
+    lifecycle = '2.0.0'
+    paging = '2.0.0'
+    androidAnnotations = '1.0.0'
+    design = '1.0.0'
+    gridLayout = '1.0.0'
+    room = '2.0.0'
+    constraintLayout = '1.1.3'
+    vectorDrawable = '1.0.1'
+    exifinterface = '1.0.0'
+
+    //Kotlin
+    kotlinCoroutines = '1.2.1'
+    kotlinExtensions = '1.0.2'
+
+    //Third party libraries
+    dagger = '2.23.1'
+    javaxAnnotations = '1.0'
+    javaxInject = '1'
+    timber = '4.7.0'
+    slf4j = '1.7.25'
+    intents = '1.2.5'
+    retrofit = '2.6.0'
+    loggingInterceptor = '3.14.2'
+    gson = '2.8.5'
+    rxJava = '2.2.9'
+    rxAndroid = '2.1.1'
+    picasso = '2.71828'
+
+    //Unit Testing
+    robolectric = '3.8'
+    junit = '4.12'
+    mockito = '1.4.0'
+    runner = '1.0.2-alpha1'
+    espresso = '3.0.2-alpha1'
+
+    //Development
+    leakCanaryVersion = '1.5'
+
+    kotlin = [
+            kotlin                 : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin",
+            kotlinCoroutines       : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines",
+            kotlinCoroutinesAndroid: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutines",
+            kotlinExtensions       : "androidx.core:core-ktx:$kotlinExtensions"
+    ]
+
+    android = [
+            appCompat            : "androidx.appcompat:appcompat:$appCompat",
+            constraintLayout     : "androidx.constraintlayout:constraintlayout:$constraintLayout",
+            vectorDrawable       : "androidx.vectordrawable:vectordrawable:$vectorDrawable",
+            exifinterface        : "androidx.exifinterface:exifinterface:$exifinterface",
+            recyclerView         : "androidx.recyclerview:recyclerview:$recyclerView",
+            recyclerViewSelection: "androidx.recyclerview:recyclerview-selection:$recyclerView",
+            pagin                : "androidx.paging:paging-common:$paging",
+            paginRuntime         : "androidx.paging:paging-runtime:$paging",
+            androidAnnotations   : "androidx.annotation:annotation:$androidAnnotations",
+            design               : "com.google.android.material:material:$design",
+            gridLayout           : "androidx.gridlayout:gridlayout:$gridLayout",
+            room                 : "androidx.room:room-runtime:$room",
+            roomCompiler         : "androidx.room:room-compiler:$room"
+    ]
+
+    lifecycleComponents = [
+            common      : "androidx.lifecycle:lifecycle-common:$lifecycle",
+            commonJava8 : "androidx.lifecycle:lifecycle-common-java8:$lifecycle",
+            compiler    : "androidx.lifecycle:lifecycle-compiler:$lifecycle",
+            extensions  : "androidx.lifecycle:lifecycle-extensions:$lifecycle",
+            livedata    : "androidx.lifecycle:lifecycle-livedata:$lifecycle",
+            livedataCore: "androidx.lifecycle:lifecycle-livedata-core:$lifecycle",
+            runtime     : "androidx.lifecycle:lifecycle-runtime:$lifecycle",
+            viewModel   : "androidx.lifecycle:lifecycle-viewmodel:$lifecycle"
+    ]
+
+    thirdParty = [
+            dagger               : "com.google.dagger:dagger:$dagger",
+            daggerAndroid        : "com.google.dagger:dagger-android-support:$dagger",
+            daggerCompiler       : "com.google.dagger:dagger-compiler:$dagger",
+            daggerAndroidCompiler: "com.google.dagger:dagger-android-processor:$dagger",
+            javaxAnnotation      : "javax.annotation:jsr250-api:$javaxAnnotations",
+            javaxInject          : "javax.inject:javax.inject:$javaxInject",
+            timber               : "com.jakewharton.timber:timber:$timber",
+            slf4j                : "org.slf4j:slf4j-api:$slf4j",
+            intents              : "com.github.kostasdrakonakis:android-navigator:$intents",
+            intentsCompiler      : "com.github.kostasdrakonakis:android-navigator-compiler:$intents",
+            retrofit             : "com.squareup.retrofit2:retrofit:$retrofit",
+            retrofitRxJava       : "com.squareup.retrofit2:adapter-rxjava2:$retrofit",
+            retrofitConverter    : "com.squareup.retrofit2:converter-gson:$retrofit",
+            loggingInterceptor   : "com.squareup.okhttp3:logging-interceptor:$loggingInterceptor",
+            gson                 : "com.google.code.gson:gson:$gson",
+            rxJava               : "io.reactivex.rxjava2:rxjava:$rxJava",
+            rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroid",
+            picasso              : "com.squareup.picasso:picasso:$picasso"
+    ]
+
+    unitTesting = [
+            kotlin     : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin",
+            kotlinTest : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin",
+            robolectric: "org.robolectric:robolectric:$robolectric",
+            junit      : "junit:junit:$junit",
+            mockito    : "com.nhaarman:mockito-kotlin:$mockito"
+    ]
+
+    acceptanceTesting = [
+            testRunner        : "com.android.support.test:runner:$runner",
+            testRules         : "com.android.support.test:rules:$runner",
+            espressoCore      : "com.android.support.test.espresso:espresso-core:$espresso",
+            espressoIntents   : "com.android.support.test.espresso:espresso-intents:$espresso",
+            androidAnnotations: "androidx.annotation:annotation:$androidAnnotations"
+    ]
+
+    development = [
+            leakCanary    : "com.squareup.leakcanary:leakcanary-android:$leakCanaryVersion",
+            leakCanaryNoop: "com.squareup.leakcanary:leakcanary-android-no-op:$leakCanaryVersion"
+    ]
+}
