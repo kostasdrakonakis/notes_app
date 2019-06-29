@@ -40,11 +40,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-
     def kotlin = rootProject.ext.kotlin
     def android = rootProject.ext.android
     def thirdParty = rootProject.ext.thirdParty
@@ -87,11 +89,5 @@ dependencies {
 
     //Dagger
     implementation thirdParty.dagger
-    annotationProcessor thirdParty.daggerCompiler
-    annotationProcessor thirdParty.daggerAndroidCompiler
     kapt thirdParty.daggerCompiler
-    kapt thirdParty.daggerAndroidCompiler
-    implementation(thirdParty.daggerAndroid, {
-        exclude group: 'com.google.code.findbugs'
-    })
 }
