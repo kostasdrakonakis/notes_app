@@ -17,16 +17,16 @@ ext {
     kotlinExtensions = '1.0.2'
 
     //Third party libraries
-    dagger = '2.23.1'
+    dagger = '2.23.2'
     javaxAnnotations = '1.0'
     javaxInject = '1'
-    timber = '4.7.0'
+    timber = '4.7.1'
     slf4j = '1.7.25'
     intents = '1.2.5'
     retrofit = '2.6.0'
-    loggingInterceptor = '3.14.2'
+    loggingInterceptor = '4.0.0'
     gson = '2.8.5'
-    rxJava = '2.2.9'
+    rxJava = '2.2.10'
     rxAndroid = '2.1.1'
     picasso = '2.71828'
 
