@@ -3,7 +3,6 @@ package com.kostasdrakonakis.notes.ui.notes
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
-import com.kostasdrakonakis.notes.extensions.setListSchedulers
 import com.kostasdrakonakis.notes.extensions.setSchedulers
 import com.kostasdrakonakis.notes.managers.note.NoteManager
 import com.kostasdrakonakis.notes.model.note.NoteModel
@@ -29,7 +28,7 @@ class NoteListViewModel @Inject constructor(private val noteManager: NoteManager
     fun onActivityStarted() {
         compositeDisposable.add(
             noteManager.getNotes()
-                .setListSchedulers()
+                .setSchedulers()
                 .subscribe { notes: List<Note>?, throwable: Throwable? ->
                     if (notes == null) {
                         notesData.postValue(null)

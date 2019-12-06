@@ -13,11 +13,6 @@ fun <T> Single<T>.setSchedulers(): Single<T> {
         .observeOn(AndroidSchedulers.mainThread())
 }
 
-fun <T> Single<List<T>>.setListSchedulers(): Single<List<T>> {
-    return this.subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-}
-
 fun <T> Maybe<T>.setSchedulers(): Maybe<T> {
     return this.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
