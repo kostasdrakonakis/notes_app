@@ -59,6 +59,15 @@ dependencies {
     implementation android.vectorDrawable
     implementation android.exifinterface
 
+    //Lifecycle
+    implementation lifecycleComponents.common
+    implementation lifecycleComponents.extensions
+    implementation lifecycleComponents.livedata
+    implementation lifecycleComponents.livedataCore
+    implementation lifecycleComponents.runtime
+    implementation lifecycleComponents.viewModel
+    kapt lifecycleComponents.compiler
+
     //Kotlin
     implementation kotlin.kotlin
 

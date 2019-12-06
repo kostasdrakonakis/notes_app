@@ -1,22 +1,17 @@
 package com.kostasdrakonakis.notes.managers.note
 
 import com.kostasdrakonakis.notes.network.model.Note
-import io.reactivex.disposables.Disposable
+import io.reactivex.Completable
+import io.reactivex.Single
 
 interface NoteManager {
-    interface Callback<D> {
-        fun onSuccess(data: D?)
+    fun getNotes(): Single<List<Note>>
 
-        fun onFailure(throwable: Throwable?)
-    }
+    fun getNote(id: Int): Single<Note>
 
-    fun getNotes(callback: Callback<List<Note>>): Disposable
+    fun createNote(title: String): Single<Note>
 
-    fun getNote(id: Int, callback: Callback<Note>): Disposable
+    fun editNote(id: Int, title: String): Single<Note>
 
-    fun createNote(title: String, callback: Callback<Note>): Disposable
-
-    fun editNote(id: Int, title: String, callback: Callback<Note>): Disposable
-
-    fun deleteNote(id: Int): Disposable
+    fun deleteNote(id: Int): Completable
 }

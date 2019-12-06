@@ -15,8 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".mvp.note.NoteActivity" />
-        <activity android:name=".mvp.notes.NoteListActivity">
+        <activity android:name=".ui.note.NoteActivity" />
+        <activity android:name=".ui.notes.NoteListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

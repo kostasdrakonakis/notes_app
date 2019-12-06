@@ -21,7 +21,7 @@ abstract class BaseAdapter<T, V : View> : RecyclerView.Adapter<BaseAdapter.BaseV
         return items?.get(position)
     }
 
-    fun getItemPosition(item: T): Int? {
+    private fun getItemPosition(item: T): Int? {
         return items?.indexOf(item)
     }
 
