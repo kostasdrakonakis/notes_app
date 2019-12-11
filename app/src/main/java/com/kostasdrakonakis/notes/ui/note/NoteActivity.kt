@@ -9,7 +9,6 @@ import com.github.kostasdrakonakis.annotation.IntentType
 import com.kostasdrakonakis.notes.R
 import com.kostasdrakonakis.notes.android.activity.BaseActivity
 import com.kostasdrakonakis.notes.extensions.viewModel
-import com.kostasdrakonakis.notes.viewmodels.BaseViewModel
 
 @Intent(value = [IntentExtra(type = IntentType.INT, parameter = "noteId")])
 class NoteActivity : BaseActivity() {
@@ -25,10 +24,7 @@ class NoteActivity : BaseActivity() {
         setContentView(R.layout.activity_note)
         IntentNavigatorBinder.bind(this)
         noteViewModel = viewModel()
-    }
-
-    override fun getViewModel(): BaseViewModel {
-        return noteViewModel
+        lifecycle.addObserver(noteViewModel)
     }
 
     fun showText(text: String?) {

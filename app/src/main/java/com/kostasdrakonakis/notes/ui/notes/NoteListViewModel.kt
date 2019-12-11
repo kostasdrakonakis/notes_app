@@ -15,12 +15,12 @@ class NoteListViewModel @Inject constructor(private val noteManager: NoteManager
 
     val notesData: MutableLiveData<List<NoteModel>> = MutableLiveData()
     val createNote: MutableLiveData<Boolean> = MutableLiveData()
-    val errorData: MutableLiveData<Throwable> = MutableLiveData()
+    val errorData: MutableLiveData<String> = MutableLiveData()
 
     fun createNote(title: String) {
         compositeDisposable.add(noteManager.createNote(title).setSchedulers().subscribe { data: Note?, throwable: Throwable? ->
             createNote.postValue(data != null)
-            errorData.postValue(throwable)
+            errorData.postValue(throwable?.message)
         })
     }
 
@@ -32,7 +32,7 @@ class NoteListViewModel @Inject constructor(private val noteManager: NoteManager
                 .subscribe { notes: List<Note>?, throwable: Throwable? ->
                     if (notes == null) {
                         notesData.postValue(null)
-                        errorData.postValue(throwable)
+                        errorData.postValue(throwable?.message)
                     } else {
                         val noteModelList = arrayListOf<NoteModel>()
                         for (note: Note in notes) {
