@@ -10,12 +10,13 @@ import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.github.kostasdrakonakis.androidnavigator.IntentNavigator
 import com.kostasdrakonakis.notes.R
 import com.kostasdrakonakis.notes.android.activity.BaseActivity
-import com.kostasdrakonakis.notes.extensions.isEmpty
+import com.kostasdrakonakis.notes.extensions.asObservable
+import com.kostasdrakonakis.notes.extensions.failure
 import com.kostasdrakonakis.notes.extensions.observe
 import com.kostasdrakonakis.notes.extensions.setSchedulers
+import com.kostasdrakonakis.notes.extensions.stringText
 import com.kostasdrakonakis.notes.extensions.viewModel
 import com.kostasdrakonakis.notes.model.note.NoteModel
-import com.kostasdrakonakis.notes.viewmodels.BaseViewModel
 import kotlinx.android.synthetic.main.activity_notes_list.*
 import kotlinx.android.synthetic.main.create_note.view.*
 
@@ -28,11 +29,12 @@ class NoteListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes_list)
         noteListViewModel = viewModel()
+        lifecycle.addObserver(noteListViewModel)
         observe(noteListViewModel.notesData, { data ->
             if (data != null) showNotes(data)
         })
-        observe(noteListViewModel.errorData, { throwable ->
-            if (throwable != null) showError(throwable.message)
+        failure(noteListViewModel.errorData, { throwable ->
+            if (throwable != null) showError(throwable)
         })
         observe(noteListViewModel.createNote, { success ->
             Toast.makeText(this, getString(R.string.note_status_message) + success, Toast.LENGTH_SHORT).show()
@@ -45,10 +47,6 @@ class NoteListActivity : BaseActivity() {
         compositeDisposable.add(adapter.noteId.setSchedulers().subscribe { id ->
             IntentNavigator.startNoteActivity(this, id!!)
         })
-    }
-
-    override fun getViewModel(): BaseViewModel {
-        return noteListViewModel
     }
 
     private fun showNotes(data: List<NoteModel>) {
@@ -73,12 +71,17 @@ class NoteListActivity : BaseActivity() {
         builder.setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
         builder.setPositiveButton(R.string.create) { _, _ ->
             run {
-                val text: String = view.inputText.text.toString()
-                if (!text.isEmpty()){
-                    noteListViewModel.createNote(text)
-                }
+                noteListViewModel.createNote(view.inputText.stringText())
             }
         }
-        builder.create().show()
+        val dialog = builder.create()
+        dialog.show()
+        val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
+        positiveButton.isEnabled = false
+        compositeDisposable.add(view.inputText.asObservable()
+                .setSchedulers()
+                .subscribe { text: String? ->
+                    positiveButton.isEnabled = !text.isNullOrEmpty()
+                })
     }
 }
