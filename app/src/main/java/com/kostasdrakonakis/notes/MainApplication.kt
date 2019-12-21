@@ -8,6 +8,6 @@ class MainApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         LogUtil.initLogger()
-        ViewModels.init()
+        ViewModels.init(this)
     }
 }

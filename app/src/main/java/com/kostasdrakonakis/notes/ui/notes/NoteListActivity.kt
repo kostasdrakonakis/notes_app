@@ -10,12 +10,7 @@ import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.github.kostasdrakonakis.androidnavigator.IntentNavigator
 import com.kostasdrakonakis.notes.R
 import com.kostasdrakonakis.notes.android.activity.BaseActivity
-import com.kostasdrakonakis.notes.extensions.asObservable
-import com.kostasdrakonakis.notes.extensions.failure
-import com.kostasdrakonakis.notes.extensions.observe
-import com.kostasdrakonakis.notes.extensions.setSchedulers
-import com.kostasdrakonakis.notes.extensions.stringText
-import com.kostasdrakonakis.notes.extensions.viewModel
+import com.kostasdrakonakis.notes.extensions.*
 import com.kostasdrakonakis.notes.model.note.NoteModel
 import kotlinx.android.synthetic.main.activity_notes_list.*
 import kotlinx.android.synthetic.main.create_note.view.*
@@ -37,7 +32,11 @@ class NoteListActivity : BaseActivity() {
             if (throwable != null) showError(throwable)
         })
         observe(noteListViewModel.createNote, { success ->
-            Toast.makeText(this, getString(R.string.note_status_message) + success, Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                this,
+                getString(R.string.note_status_message) + success,
+                Toast.LENGTH_SHORT
+            ).show()
         })
         recyclerView.layoutManager = LinearLayoutManager(this, VERTICAL, false)
         recyclerView.adapter = adapter
@@ -79,9 +78,9 @@ class NoteListActivity : BaseActivity() {
         val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
         positiveButton.isEnabled = false
         compositeDisposable.add(view.inputText.asObservable()
-                .setSchedulers()
-                .subscribe { text: String? ->
-                    positiveButton.isEnabled = !text.isNullOrEmpty()
-                })
+            .setSchedulers()
+            .subscribe { text: String? ->
+                positiveButton.isEnabled = !text.isNullOrEmpty()
+            })
     }
 }

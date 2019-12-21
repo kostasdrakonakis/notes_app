@@ -8,7 +8,6 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class NoteManagerImpl @Inject constructor(private val apiProvider: ApiProvider) : NoteManager {
-
     override fun createNote(title: String): Single<Note> {
         return apiProvider.notesApi.createNote(NoteBody(title))
     }
@@ -28,5 +27,4 @@ class NoteManagerImpl @Inject constructor(private val apiProvider: ApiProvider) 
     override fun getNotes(): Single<List<Note>> {
         return apiProvider.notesApi.getNotes()
     }
-
 }

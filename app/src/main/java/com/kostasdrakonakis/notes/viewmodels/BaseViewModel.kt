@@ -9,7 +9,7 @@ import io.reactivex.disposables.CompositeDisposable
 import org.slf4j.Logger
 
 abstract class BaseViewModel : ViewModel(), LifecycleObserver {
-    protected val logger: Logger = LogUtil.getLogger(javaClass)
+    protected val logger: Logger = LogUtil.getLogger<BaseViewModel>()
     protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)

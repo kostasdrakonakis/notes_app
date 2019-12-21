@@ -1,6 +1,7 @@
 package com.kostasdrakonakis.notes.logger
 
 import com.kostasdrakonakis.notes.BuildConfig
+import com.kostasdrakonakis.notes.extensions.debug
 import org.slf4j.Logger
 import org.slf4j.Marker
 import org.slf4j.helpers.MarkerIgnoringBase
@@ -11,6 +12,9 @@ class NoteLogger constructor(private val cls: Class<*>) : MarkerIgnoringBase(), 
     companion object {
         fun init() {
             Timber.plant(Timber.DebugTree())
+            debug {
+                println("=====LOGGER START=====")
+            }
         }
 
         fun getInstance(cls: Class<*>): NoteLogger {
