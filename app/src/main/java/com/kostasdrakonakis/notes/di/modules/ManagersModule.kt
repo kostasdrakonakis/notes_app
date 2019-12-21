@@ -1,5 +1,6 @@
 package com.kostasdrakonakis.notes.di.modules
 
+import com.kostasdrakonakis.notes.MainApplication
 import com.kostasdrakonakis.notes.managers.api.ApiProvider
 import com.kostasdrakonakis.notes.managers.api.ApiProviderImpl
 import com.kostasdrakonakis.notes.managers.note.NoteManager
@@ -13,7 +14,8 @@ import javax.inject.Singleton
 class ManagersModule {
     @Provides
     @Singleton
-    fun provideApiProvider(notesApi: NotesApi): ApiProvider {
+    fun provideApiProvider(application: MainApplication, notesApi: NotesApi): ApiProvider {
+        println("Print PackageName: ${application.packageName}")
         return ApiProviderImpl(notesApi)
     }
 

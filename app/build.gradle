@@ -98,5 +98,7 @@ dependencies {
 
     //Dagger
     implementation thirdParty.dagger
+    implementation thirdParty.daggerAndroid
     kapt thirdParty.daggerCompiler
+    kapt thirdParty.daggerAndroidCompiler
 }

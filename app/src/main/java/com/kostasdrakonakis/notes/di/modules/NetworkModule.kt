@@ -19,9 +19,6 @@ import javax.inject.Singleton
 @Module
 class NetworkModule {
 
-    private val connectTimeout: Long = 5000
-    private val socketTimeout: Long = 30000
-
     @Provides
     @Singleton
     fun provideGson(): Gson {
@@ -38,10 +35,9 @@ class NetworkModule {
     @Singleton
     fun provideOkhttpClient(@Nullable loggingInterceptor: Interceptor?): OkHttpClient {
         val httpClientBuilder = OkHttpClient().newBuilder()
-        httpClientBuilder.connectTimeout(connectTimeout, TimeUnit.MILLISECONDS)
-        httpClientBuilder.readTimeout(socketTimeout, TimeUnit.MILLISECONDS)
+        httpClientBuilder.connectTimeout(CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
+        httpClientBuilder.readTimeout(SOCKET_TIMEOUT, TimeUnit.MILLISECONDS)
         if (loggingInterceptor != null) httpClientBuilder.addInterceptor(loggingInterceptor)
-
         return httpClientBuilder.build()
     }
 
@@ -71,5 +67,10 @@ class NetworkModule {
     @Singleton
     fun provideEndpoint(retrofit: Retrofit): NotesApi {
         return retrofit.create<NotesApi>(NotesApi::class.java)
+    }
+
+    companion object {
+        private const val CONNECT_TIMEOUT = 5000L
+        private const val SOCKET_TIMEOUT = 30000L
     }
 }

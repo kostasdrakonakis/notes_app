@@ -9,7 +9,7 @@ object LogUtil {
         NoteLogger.init()
     }
 
-    fun getLogger(cls: Class<*>): Logger {
-        return NoteLogger.getInstance(cls)
+    inline fun <reified T> getLogger(): Logger {
+        return NoteLogger.getInstance(T::class.java)
     }
 }

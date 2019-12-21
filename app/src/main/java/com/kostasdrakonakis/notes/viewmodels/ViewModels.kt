@@ -1,13 +1,10 @@
 package com.kostasdrakonakis.notes.viewmodels
 
+import com.kostasdrakonakis.notes.MainApplication
 import com.kostasdrakonakis.notes.di.components.DaggerViewModelsComponent
-import com.kostasdrakonakis.notes.di.components.ViewModelsComponent
-import com.kostasdrakonakis.notes.di.modules.ManagersModule
-import com.kostasdrakonakis.notes.di.modules.NetworkModule
 import javax.inject.Inject
 
 class ViewModels private constructor() {
-    private var component: ViewModelsComponent? = null
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -17,15 +14,9 @@ class ViewModels private constructor() {
 
         val viewModelFactory: ViewModelFactory get() = instance.viewModelFactory
 
-        fun init() {
+        fun init(app: MainApplication) {
             instance = ViewModels()
-            instance.component = DaggerViewModelsComponent
-                .builder()
-                .managersModule(ManagersModule())
-                .networkModule(NetworkModule())
-                .build()
-
-            instance.component?.inject(instance)
+            DaggerViewModelsComponent.factory().withContext(app).inject(instance)
         }
     }
 }
