@@ -1,6 +1,7 @@
 ext {
     //Android libraries
-    appCompat = '1.0.2'
+    appCompat = '1.1.0'
+    ktx = '1.2.0'
     recyclerView = '1.0.0'
     lifecycle = '2.0.0'
     paging = '2.0.0'
@@ -17,7 +18,7 @@ ext {
     kotlinExtensions = '1.0.2'
 
     //Third party libraries
-    dagger = '2.23.2'
+    dagger = '2.27'
     timber = '4.7.1'
     slf4j = '1.7.25'
     intents = '1.2.5'
@@ -47,6 +48,8 @@ ext {
 
     android = [
             appCompat            : "androidx.appcompat:appcompat:$appCompat",
+            coreKtx              : "androidx.core:core-ktx:$ktx",
+            fragmentKtx          : "androidx.fragment:fragment-ktx:$ktx",
             constraintLayout     : "androidx.constraintlayout:constraintlayout:$constraintLayout",
             vectorDrawable       : "androidx.vectordrawable:vectordrawable:$vectorDrawable",
             exifinterface        : "androidx.exifinterface:exifinterface:$exifinterface",

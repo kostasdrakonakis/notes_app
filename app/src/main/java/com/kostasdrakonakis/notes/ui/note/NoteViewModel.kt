@@ -11,10 +11,6 @@ class NoteViewModel @Inject constructor(private val noteManager: NoteManager) : 
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onActivityStarted() {
-        compositeDisposable.add(
-            noteManager.getNote(1)
-                .setSchedulers()
-                .subscribe()
-        )
+        compositeDisposable.add(noteManager.getNote(1).setSchedulers().subscribe())
     }
 }
