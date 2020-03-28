@@ -18,11 +18,7 @@ class NotesAdapter : BaseAdapter<NoteModel, View>() {
     override fun onCreateViewHolder(container: ViewGroup, viewType: Int): BaseViewHolder<View> {
         val layoutInflater = LayoutInflater.from(container.context)
         return BaseViewHolder(
-            layoutInflater.inflate(
-                android.R.layout.simple_list_item_1,
-                container,
-                false
-            )
+            layoutInflater.inflate(android.R.layout.simple_list_item_1, container, false)
         )
     }
 

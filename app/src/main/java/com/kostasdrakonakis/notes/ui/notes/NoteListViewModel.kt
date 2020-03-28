@@ -18,10 +18,13 @@ class NoteListViewModel @Inject constructor(private val noteManager: NoteManager
     val errorData: MutableLiveData<String> = MutableLiveData()
 
     fun createNote(title: String) {
-        compositeDisposable.add(noteManager.createNote(title).setSchedulers().subscribe { data: Note?, throwable: Throwable? ->
-            createNote.postValue(data != null)
-            errorData.postValue(throwable?.message)
-        })
+        compositeDisposable.add(
+            noteManager.createNote(title)
+                .setSchedulers()
+                .subscribe { data: Note?, throwable: Throwable? ->
+                    createNote.postValue(data != null)
+                    errorData.postValue(throwable?.message)
+                })
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)

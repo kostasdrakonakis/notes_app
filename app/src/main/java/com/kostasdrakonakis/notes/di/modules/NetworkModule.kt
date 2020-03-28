@@ -66,7 +66,7 @@ class NetworkModule {
     @Provides
     @Singleton
     fun provideEndpoint(retrofit: Retrofit): NotesApi {
-        return retrofit.create<NotesApi>(NotesApi::class.java)
+        return retrofit.create(NotesApi::class.java)
     }
 
     companion object {
