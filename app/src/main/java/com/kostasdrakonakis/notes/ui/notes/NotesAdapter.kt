@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.kostasdrakonakis.notes.android.adapter.BaseAdapter
-import com.kostasdrakonakis.notes.model.note.NoteModel
+import com.kostasdrakonakis.notes.model.NoteModel
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 

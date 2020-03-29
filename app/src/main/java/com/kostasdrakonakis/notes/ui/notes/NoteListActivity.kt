@@ -16,7 +16,7 @@ import com.kostasdrakonakis.notes.extensions.failure
 import com.kostasdrakonakis.notes.extensions.observe
 import com.kostasdrakonakis.notes.extensions.setSchedulers
 import com.kostasdrakonakis.notes.extensions.stringText
-import com.kostasdrakonakis.notes.model.note.NoteModel
+import com.kostasdrakonakis.notes.model.NoteModel
 import kotlinx.android.synthetic.main.activity_notes_list.*
 import kotlinx.android.synthetic.main.create_note.view.*
 
