@@ -1,8 +1,6 @@
 package com.kostasdrakonakis.notes.ui
 
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
-import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ViewModel
 import com.kostasdrakonakis.notes.managers.note.NoteManager
 import com.kostasdrakonakis.notes.util.LogUtil
@@ -16,8 +14,8 @@ abstract class BaseViewModel : ViewModel(), LifecycleObserver, KoinComponent {
     protected val noteManager by inject<NoteManager>()
     protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
-    protected fun onActivityStopped() {
+    override fun onCleared() {
+        super.onCleared()
         if (!compositeDisposable.isDisposed) compositeDisposable.dispose()
     }
 }
