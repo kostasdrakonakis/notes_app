@@ -1,16 +1,17 @@
 ext {
     //Android libraries
     appCompat = '1.1.0'
-    ktx = '1.2.0'
-    recyclerView = '1.0.0'
-    lifecycle = '2.0.0'
-    paging = '2.0.0'
-    androidAnnotations = '1.0.0'
+    kotlinKtx = '1.2.0'
+    koin = '2.0.1'
+    recyclerView = '1.1.0'
+    lifecycle = '2.2.0'
+    paging = '2.2.0'
+    androidAnnotations = '1.1.0'
     design = '1.0.0'
     gridLayout = '1.0.0'
-    room = '2.0.0'
+    room = '2.2.5'
     constraintLayout = '1.1.3'
-    vectorDrawable = '1.0.1'
+    vectorDrawable = '1.1.0'
     exifinterface = '1.0.0'
 
     //Kotlin
@@ -30,17 +31,18 @@ ext {
     picasso = '2.71828'
 
     //Unit Testing
-    robolectric = '3.8'
-    junit = '4.12'
-    mockito = '1.4.0'
-    runner = '1.0.2-alpha1'
-    espresso = '3.0.2-alpha1'
+    robolectric = '4.3.1'
+    junit = '4.13'
+    mockito = '3.3.3'
+    kotlinMockito = '2.2.0'
+    runner = '1.1.0'
+    espresso = '3.1.0'
 
     //Development
     leakCanaryVersion = '1.5'
 
-    kotlin = [
-            kotlin                 : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin",
+    ktx = [
+            kotlinLib              : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version",
             kotlinCoroutines       : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutines",
             kotlinCoroutinesAndroid: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutines",
             kotlinExtensions       : "androidx.core:core-ktx:$kotlinExtensions"
@@ -48,8 +50,8 @@ ext {
 
     android = [
             appCompat            : "androidx.appcompat:appcompat:$appCompat",
-            coreKtx              : "androidx.core:core-ktx:$ktx",
-            fragmentKtx          : "androidx.fragment:fragment-ktx:$ktx",
+            coreKtx              : "androidx.core:core-ktx:$kotlinKtx",
+            fragmentKtx          : "androidx.fragment:fragment-ktx:$kotlinKtx",
             constraintLayout     : "androidx.constraintlayout:constraintlayout:$constraintLayout",
             vectorDrawable       : "androidx.vectordrawable:vectordrawable:$vectorDrawable",
             exifinterface        : "androidx.exifinterface:exifinterface:$exifinterface",
@@ -91,22 +93,25 @@ ext {
             gson                 : "com.google.code.gson:gson:$gson",
             rxJava               : "io.reactivex.rxjava2:rxjava:$rxJava",
             rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroid",
-            picasso              : "com.squareup.picasso:picasso:$picasso"
+            picasso              : "com.squareup.picasso:picasso:$picasso",
+            koin                 :"org.koin:koin-core:$koin",
+            koinAndroid          :"org.koin:koin-android:$koin"
+
     ]
 
     unitTesting = [
-            kotlin     : "org.jetbrains.kotlin:kotlin-stdlib:$kotlin",
-            kotlinTest : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin",
-            robolectric: "org.robolectric:robolectric:$robolectric",
-            junit      : "junit:junit:$junit",
-            mockito    : "com.nhaarman:mockito-kotlin:$mockito"
+            kotlinTest      : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version",
+            robolectric     : "org.robolectric:robolectric:$robolectric",
+            junit           : "junit:junit:$junit",
+            kotlinMockito   : "com.nhaarman.mockitokotlin2:mockito-kotlin:$kotlinMockito",
+            mockito         : "org.mockito:mockito-android:$mockito"
     ]
 
     acceptanceTesting = [
-            testRunner        : "com.android.support.test:runner:$runner",
-            testRules         : "com.android.support.test:rules:$runner",
-            espressoCore      : "com.android.support.test.espresso:espresso-core:$espresso",
-            espressoIntents   : "com.android.support.test.espresso:espresso-intents:$espresso",
+            testRunner        : "androidx.test:runner:$runner",
+            testRules         : "androidx.test:rules:$runner",
+            espressoCore      : "androidx.test.espresso:espresso-core:$espresso",
+            espressoIntents   : "androidx.test.espresso:espresso-intents:$espresso",
             androidAnnotations: "androidx.annotation:annotation:$androidAnnotations"
     ]
 

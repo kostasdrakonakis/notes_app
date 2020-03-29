@@ -51,11 +51,12 @@ android {
 }
 
 dependencies {
-    def kotlin = rootProject.ext.kotlin
+    def ktx = rootProject.ext.ktx
     def android = rootProject.ext.android
     def thirdParty = rootProject.ext.thirdParty
+    def unitTesting = rootProject.ext.unitTesting
 
-    implementation kotlin.kotlinExtensions
+    implementation ktx.kotlinExtensions
     implementation android.appCompat
     implementation android.coreKtx
     implementation android.fragmentKtx
@@ -75,7 +76,7 @@ dependencies {
     kapt lifecycleComponents.compiler
 
     //Kotlin
-    implementation kotlin.kotlin
+    implementation ktx.kotlinLib
 
     //Retrofit
     implementation thirdParty.retrofit
@@ -102,9 +103,14 @@ dependencies {
     annotationProcessor thirdParty.intentsCompiler
     kapt thirdParty.intentsCompiler
 
-    //Dagger
-    implementation thirdParty.dagger
-    implementation thirdParty.daggerAndroid
-    kapt thirdParty.daggerCompiler
-    kapt thirdParty.daggerAndroidCompiler
+    // Koin
+    implementation thirdParty.koin
+    implementation thirdParty.koinAndroid
+
+    // Test
+    testImplementation unitTesting.kotlinTest
+    testImplementation unitTesting.robolectric
+    testImplementation unitTesting.junit
+    testImplementation unitTesting.kotlinMockito
+    testImplementation unitTesting.mockito
 }
