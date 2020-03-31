@@ -6,7 +6,7 @@ import com.kostasdrakonakis.notes.network.model.NoteBody
 import io.reactivex.Completable
 import io.reactivex.Single
 
-class NoteManagerImpl constructor(private val apiProvider: ApiProvider) : NoteManager {
+open class NoteManagerImpl constructor(private val apiProvider: ApiProvider) : NoteManager {
     override fun createNote(title: String): Single<Note> {
         return apiProvider.notesApi.createNote(NoteBody(title))
     }

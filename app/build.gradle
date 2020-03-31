@@ -55,6 +55,7 @@ dependencies {
     def android = rootProject.ext.android
     def thirdParty = rootProject.ext.thirdParty
     def unitTesting = rootProject.ext.unitTesting
+    def instrumentationTesting = rootProject.ext.instrumentationTesting
 
     implementation ktx.kotlinExtensions
     implementation android.appCompat
@@ -111,6 +112,8 @@ dependencies {
     testImplementation unitTesting.kotlinTest
     testImplementation unitTesting.robolectric
     testImplementation unitTesting.junit
+    testImplementation thirdParty.mockWebServer
     testImplementation unitTesting.kotlinMockito
-    testImplementation unitTesting.mockito
+    testImplementation unitTesting.mockitoCore
+    testImplementation instrumentationTesting.truth
 }
