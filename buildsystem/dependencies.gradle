@@ -25,6 +25,7 @@ ext {
     intents = '1.2.5'
     retrofit = '2.6.0'
     loggingInterceptor = '4.0.0'
+    okHttpVersion = '4.4.0'
     gson = '2.8.5'
     rxJava = '2.2.10'
     rxAndroid = '2.1.1'
@@ -35,8 +36,15 @@ ext {
     junit = '4.13'
     mockito = '3.3.3'
     kotlinMockito = '2.2.0'
+    mockitoInline = '2.8.47'
+    powerMock = '2.0.2'
+    festAssert = '1.4'
     runner = '1.1.0'
     espresso = '3.1.0'
+    extJunit = '1.1.1'
+    extTruth = '1.2.0'
+    truth = '1.0.1'
+
 
     //Development
     leakCanaryVersion = '1.5'
@@ -95,21 +103,31 @@ ext {
             rxAndroid            : "io.reactivex.rxjava2:rxandroid:$rxAndroid",
             picasso              : "com.squareup.picasso:picasso:$picasso",
             koin                 :"org.koin:koin-core:$koin",
-            koinAndroid          :"org.koin:koin-android:$koin"
+            koinAndroid          :"org.koin:koin-android:$koin",
+            mockWebServer        :"com.squareup.okhttp3:mockwebserver:$okHttpVersion"
 
     ]
 
     unitTesting = [
-            kotlinTest      : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version",
-            robolectric     : "org.robolectric:robolectric:$robolectric",
-            junit           : "junit:junit:$junit",
-            kotlinMockito   : "com.nhaarman.mockitokotlin2:mockito-kotlin:$kotlinMockito",
-            mockito         : "org.mockito:mockito-android:$mockito"
+            kotlinTest           : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version",
+            robolectric          : "org.robolectric:robolectric:$robolectric",
+            junit                : "junit:junit:$junit",
+            kotlinMockito        : "com.nhaarman.mockitokotlin2:mockito-kotlin:$kotlinMockito",
+            mockito              : "org.mockito:mockito-android:$mockito",
+            mockitoCore          : "org.mockito:mockito-core:$mockito",
+            mockitoInline        : "org.mockito:mockito-inline:$mockitoInline",
+            festAssert           : "org.easytesting:fest-assert:$festAssert",
+            powerMock            : "org.powermock:powermock-api-easymock:$powerMock",
+            powerMockRule        : "org.powermock:powermock-module-junit4-rule:$powerMock",
+            powerMockClassLoading: "org.powermock:powermock-classloading-xstream:$powerMock",
     ]
 
-    acceptanceTesting = [
+    instrumentationTesting = [
             testRunner        : "androidx.test:runner:$runner",
             testRules         : "androidx.test:rules:$runner",
+            extJunit          : "androidx.test.ext:junit:$extJunit",
+            extTruth          : "androidx.test.ext:truth:$extTruth",
+            truth             : "com.google.truth:truth:$truth",
             espressoCore      : "androidx.test.espresso:espresso-core:$espresso",
             espressoIntents   : "androidx.test.espresso:espresso-intents:$espresso",
             androidAnnotations: "androidx.annotation:annotation:$androidAnnotations"
