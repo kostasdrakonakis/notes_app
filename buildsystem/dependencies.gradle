@@ -39,6 +39,7 @@ ext {
     mockitoInline = '2.8.47'
     powerMock = '2.0.2'
     festAssert = '1.4'
+    robolectric = '4.3.1'
     runner = '1.1.0'
     espresso = '3.1.0'
     extJunit = '1.1.1'
@@ -110,6 +111,7 @@ ext {
 
     unitTesting = [
             kotlinTest           : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version",
+            koinTest             : "org.koin:koin-test:$koin",
             robolectric          : "org.robolectric:robolectric:$robolectric",
             junit                : "junit:junit:$junit",
             kotlinMockito        : "com.nhaarman.mockitokotlin2:mockito-kotlin:$kotlinMockito",
@@ -117,6 +119,7 @@ ext {
             mockitoCore          : "org.mockito:mockito-core:$mockito",
             mockitoInline        : "org.mockito:mockito-inline:$mockitoInline",
             festAssert           : "org.easytesting:fest-assert:$festAssert",
+            robolectric          : "org.robolectric:robolectric:$robolectric",
             powerMock            : "org.powermock:powermock-api-easymock:$powerMock",
             powerMockRule        : "org.powermock:powermock-module-junit4-rule:$powerMock",
             powerMockClassLoading: "org.powermock:powermock-classloading-xstream:$powerMock",

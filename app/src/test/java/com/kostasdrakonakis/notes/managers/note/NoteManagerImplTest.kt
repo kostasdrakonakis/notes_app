@@ -2,26 +2,22 @@ package com.kostasdrakonakis.notes.managers.note
 
 import com.google.common.truth.Truth.assertThat
 import com.kostasdrakonakis.notes.BaseUnitTest
-import com.kostasdrakonakis.notes.FileUtils
 import okhttp3.mockwebserver.MockResponse
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.mockito.junit.MockitoJUnitRunner
-import java.net.HttpURLConnection
+import org.koin.core.qualifier.named
+import org.koin.test.inject
 
-@RunWith(MockitoJUnitRunner::class)
-class NoteManagerImplTest: BaseUnitTest() {
+class NoteManagerImplTest : BaseUnitTest() {
 
-    private lateinit var noteManager: NoteManagerImpl
-
-    override fun setUp() {
-        super.setUp()
-        noteManager = NoteManagerImpl(apiProvider)
-    }
+    private val noteManager by inject<NoteManager>()
+    private val listResponse by inject<MockResponse>(named(LIST_RESPONSE))
+    private val deleteListResponse by inject<MockResponse>(named(DELETE_LIST_RESPONSE))
+    private val updateResponse by inject<MockResponse>(named(UPDATE_RESPONSE))
+    private val noteResponse by inject<MockResponse>(named(NOTE_RESPONSE))
 
     @Test
     fun createNote() {
-        mockWebServer.enqueue(getResponse())
+        enqueue(noteResponse)
         val note = noteManager.createNote("Hello").blockingGet()
         assertThat(note.title).isEqualTo("Hello")
         assertThat(note.id).isEqualTo(1)
@@ -29,7 +25,7 @@ class NoteManagerImplTest: BaseUnitTest() {
 
     @Test
     fun getNote() {
-        mockWebServer.enqueue(getResponse())
+        enqueue(noteResponse)
         val note = noteManager.getNote(1).blockingGet()
         assertThat(note.title).isEqualTo("Hello")
         assertThat(note.id).isEqualTo(1)
@@ -37,7 +33,7 @@ class NoteManagerImplTest: BaseUnitTest() {
 
     @Test
     fun editNote() {
-        mockWebServer.enqueue(getUpdatedResponse())
+        enqueue(updateResponse)
         val note = noteManager.editNote(2, "World").blockingGet()
         assertThat(note.title).isEqualTo("World")
         assertThat(note.id).isEqualTo(2)
@@ -45,37 +41,27 @@ class NoteManagerImplTest: BaseUnitTest() {
 
     @Test
     fun deleteNote() {
-        mockWebServer.enqueue(getListResponse())
-        val result = noteManager.deleteNote(1).blockingAwait()
-        assertThat(result).isInstanceOf(Unit::class.java)
+        enqueue(listResponse)
+        noteManager.deleteNote(1).blockingAwait()
+        enqueue(deleteListResponse)
+        val result = noteManager.getNotes().blockingGet()
+        val listRequest = takeRequest()
+        val deleteListRequest = takeRequest()
+        assertThat(listRequest.sequenceNumber).isEqualTo(0)
+        assertThat(deleteListRequest.sequenceNumber).isEqualTo(1)
+        assertThat(result.size).isEqualTo(1)
+        assertThat(result[0].id).isEqualTo(2)
+        assertThat(result[0].title).isEqualTo("World")
     }
 
     @Test
     fun getNotes() {
-        mockWebServer.enqueue(getListResponse())
+        enqueue(listResponse)
         val notes = noteManager.getNotes().blockingGet()
         assertThat(notes.size).isEqualTo(2)
         assertThat(notes[0].title).isEqualTo("Hello")
         assertThat(notes[0].id).isEqualTo(1)
         assertThat(notes[1].title).isEqualTo("World")
         assertThat(notes[1].id).isEqualTo(2)
-    }
-
-    private fun getResponse(): MockResponse {
-        return MockResponse()
-            .setResponseCode(HttpURLConnection.HTTP_OK)
-            .setBody(FileUtils.readTestResourceFile("note.json"))
-    }
-
-    private fun getUpdatedResponse(): MockResponse {
-        return MockResponse()
-            .setResponseCode(HttpURLConnection.HTTP_OK)
-            .setBody(FileUtils.readTestResourceFile("update.json"))
-    }
-
-    private fun getListResponse(): MockResponse {
-        return MockResponse()
-            .setResponseCode(HttpURLConnection.HTTP_OK)
-            .setBody(FileUtils.readTestResourceFile("list.json"))
     }
 }
