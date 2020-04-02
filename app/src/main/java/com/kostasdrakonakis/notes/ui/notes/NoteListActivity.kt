@@ -12,11 +12,11 @@ import com.github.kostasdrakonakis.androidnavigator.IntentNavigator
 import com.kostasdrakonakis.notes.R
 import com.kostasdrakonakis.notes.android.activity.BaseActivity
 import com.kostasdrakonakis.notes.extensions.asObservable
-import com.kostasdrakonakis.notes.extensions.failure
 import com.kostasdrakonakis.notes.extensions.observe
 import com.kostasdrakonakis.notes.extensions.setSchedulers
 import com.kostasdrakonakis.notes.extensions.stringText
 import com.kostasdrakonakis.notes.model.NoteModel
+import com.kostasdrakonakis.notes.model.State
 import kotlinx.android.synthetic.main.activity_notes_list.*
 import kotlinx.android.synthetic.main.create_note.view.*
 
@@ -29,18 +29,26 @@ class NoteListActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes_list)
         lifecycle.addObserver(noteListViewModel)
-        observe(noteListViewModel.notesData, { data ->
-            if (data != null) showNotes(data)
+        observe(noteListViewModel.noteListState, { state ->
+            when (state.currentState) {
+                State.LOADING.value -> showLoading()
+                State.SUCCESS.value -> showNotes(state.data!!)
+                State.FAILED.value -> showError(state.error?.message)
+            }
         })
-        failure(noteListViewModel.errorData, { throwable ->
-            if (throwable != null) showError(throwable)
-        })
-        observe(noteListViewModel.createNote, { success ->
-            Toast.makeText(
-                this,
-                getString(R.string.note_status_message) + success,
-                Toast.LENGTH_SHORT
-            ).show()
+        observe(noteListViewModel.createNoteState, { state ->
+            when (state?.currentState) {
+                State.LOADING.value -> showLoading()
+                State.SUCCESS.value -> {
+                    Toast.makeText(
+                        this,
+                        getString(R.string.note_status_message) + state.data?.title,
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                State.FAILED.value -> showError(state.error?.message)
+            }
+
         })
         recyclerView.layoutManager = LinearLayoutManager(this, VERTICAL, false)
         recyclerView.adapter = adapter
@@ -50,6 +58,11 @@ class NoteListActivity : BaseActivity() {
         compositeDisposable.add(adapter.noteId.setSchedulers().subscribe { id ->
             IntentNavigator.startNoteActivity(this, id!!)
         })
+    }
+
+    private fun showLoading() {
+        recyclerView.visibility = View.GONE
+        errorView.visibility = View.GONE
     }
 
     private fun showNotes(data: List<NoteModel>) {

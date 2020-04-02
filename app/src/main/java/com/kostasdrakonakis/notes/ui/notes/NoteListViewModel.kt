@@ -10,43 +10,52 @@ import com.kostasdrakonakis.notes.ui.BaseViewModel
 
 class NoteListViewModel : BaseViewModel() {
 
-    val notesData: MutableLiveData<List<NoteModel>> = MutableLiveData()
-    val createNote: MutableLiveData<Boolean> = MutableLiveData()
-    val errorData: MutableLiveData<String> = MutableLiveData()
+    val noteListState: MutableLiveData<NoteListState> = MutableLiveData()
+    val createNoteState: MutableLiveData<CreateNoteState> = MutableLiveData()
 
     fun createNote(title: String) {
         compositeDisposable.add(
             noteManager.createNote(title)
+                .doOnEvent { _, _ -> onNoteLoading() }
                 .setSchedulers()
-                .subscribe { data: Note?, throwable: Throwable? ->
-                    createNote.postValue(data != null)
-                    errorData.postValue(throwable?.message)
-                })
+                .subscribe(this::onSuccess, this::onError))
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun onActivityStarted() {
-        compositeDisposable.add(
-            noteManager.getNotes()
-                .setSchedulers()
-                .subscribe { notes: List<Note>?, throwable: Throwable? ->
-                    if (notes == null) {
-                        notesData.postValue(null)
-                        errorData.postValue(throwable?.message)
-                    } else {
-                        val noteModelList = arrayListOf<NoteModel>()
-                        for (note: Note in notes) {
-                            noteModelList.add(
-                                NoteModel(
-                                    note.id,
-                                    note.title
-                                )
-                            )
-                        }
-                        notesData.postValue(noteModelList)
-                        errorData.postValue(null)
-                    }
-                }
+        compositeDisposable.add(noteManager.getNotes()
+            .doOnEvent { _, _ -> onLoading() }
+            .setSchedulers()
+            .subscribe(this::onSuccess, this::onListError)
         )
+    }
+
+    private fun onLoading() {
+        noteListState.postValue(NoteListState.LOADING_STATE)
+    }
+
+    private fun onNoteLoading() {
+        createNoteState.postValue(CreateNoteState.LOADING_STATE)
+    }
+
+    private fun onSuccess(notes: List<Note>?) {
+        val data = notes?.map { NoteModel(it.id, it.title) }
+        NoteListState.SUCCESS_STATE.data = data
+        noteListState.postValue(NoteListState.SUCCESS_STATE)
+    }
+
+    private fun onSuccess(note: Note?) {
+        CreateNoteState.SUCCESS_STATE.data = note
+        createNoteState.postValue(CreateNoteState.SUCCESS_STATE)
+    }
+
+    private fun onError(error: Throwable?) {
+        CreateNoteState.ERROR_STATE.error = error
+        createNoteState.postValue(CreateNoteState.ERROR_STATE)
+    }
+
+    private fun onListError(error: Throwable?) {
+        NoteListState.ERROR_STATE.error = error
+        noteListState.postValue(NoteListState.ERROR_STATE)
     }
 }
