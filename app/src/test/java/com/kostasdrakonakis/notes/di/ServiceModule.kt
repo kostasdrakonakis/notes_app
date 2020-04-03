@@ -1,7 +1,6 @@
 package com.kostasdrakonakis.notes.di
 
-import com.kostasdrakonakis.notes.BaseUnitTest
-import com.kostasdrakonakis.notes.FileUtils
+import com.kostasdrakonakis.notes.common.BaseWebServerUnitTest
 import okhttp3.mockwebserver.MockResponse
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
@@ -9,42 +8,49 @@ import java.net.HttpURLConnection
 
 val serviceModule = module {
     single(named("LIST")) {
-        return@single FileUtils.readTestResourceFile("list.json")
+        return@single FileUtil.readTestResourceFile("list.json")
     }
 
     single(named("DELETE_LIST")) {
-        return@single FileUtils.readTestResourceFile("deleteList.json")
+        return@single FileUtil.readTestResourceFile("deleteList.json")
     }
 
     single(named("NOTE")) {
-        return@single FileUtils.readTestResourceFile("note.json")
+        return@single FileUtil.readTestResourceFile("note.json")
     }
 
     single(named("UPDATE")) {
-        return@single FileUtils.readTestResourceFile("update.json")
+        return@single FileUtil.readTestResourceFile("update.json")
     }
 
-    single(named(BaseUnitTest.LIST_RESPONSE)) {
+    single(named(BaseWebServerUnitTest.LIST_RESPONSE)) {
         return@single MockResponse()
             .setResponseCode(HttpURLConnection.HTTP_OK)
             .setBody(get<String>(named("LIST")))
     }
 
-    single(named(BaseUnitTest.NOTE_RESPONSE)) {
+    single(named(BaseWebServerUnitTest.NOTE_RESPONSE)) {
         return@single MockResponse()
             .setResponseCode(HttpURLConnection.HTTP_OK)
             .setBody(get<String>(named("NOTE")))
     }
 
-    single(named(BaseUnitTest.UPDATE_RESPONSE)) {
+    single(named(BaseWebServerUnitTest.UPDATE_RESPONSE)) {
         return@single MockResponse()
             .setResponseCode(HttpURLConnection.HTTP_OK)
             .setBody(get<String>(named("UPDATE")))
     }
 
-    single(named(BaseUnitTest.DELETE_LIST_RESPONSE)) {
+    single(named(BaseWebServerUnitTest.DELETE_LIST_RESPONSE)) {
         return@single MockResponse()
             .setResponseCode(HttpURLConnection.HTTP_OK)
             .setBody(get<String>(named("DELETE_LIST")))
+    }
+}
+
+object FileUtil {
+    fun readTestResourceFile(fileName: String): String {
+        val fileInputStream = javaClass.classLoader?.getResourceAsStream(fileName)
+        return fileInputStream?.bufferedReader()?.readText() ?: ""
     }
 }

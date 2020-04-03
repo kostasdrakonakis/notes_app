@@ -1,4 +1,4 @@
-package com.kostasdrakonakis.notes.ui
+package com.kostasdrakonakis.notes.model
 
 open class BaseViewState<T>(
     var data: T? = null,

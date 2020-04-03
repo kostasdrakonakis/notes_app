@@ -15,8 +15,8 @@ import com.kostasdrakonakis.notes.extensions.asObservable
 import com.kostasdrakonakis.notes.extensions.observe
 import com.kostasdrakonakis.notes.extensions.setSchedulers
 import com.kostasdrakonakis.notes.extensions.stringText
-import com.kostasdrakonakis.notes.model.NoteModel
 import com.kostasdrakonakis.notes.model.State
+import com.kostasdrakonakis.notes.network.model.Note
 import kotlinx.android.synthetic.main.activity_notes_list.*
 import kotlinx.android.synthetic.main.create_note.view.*
 
@@ -48,16 +48,17 @@ class NoteListActivity : BaseActivity() {
                 }
                 State.FAILED.value -> showError(state.error?.message)
             }
-
         })
         recyclerView.layoutManager = LinearLayoutManager(this, VERTICAL, false)
         recyclerView.adapter = adapter
         createButton.setOnClickListener {
             showCreateDialog()
         }
-        compositeDisposable.add(adapter.noteId.setSchedulers().subscribe { id ->
+        adapter.noteId.setSchedulers().subscribe { id ->
             IntentNavigator.startNoteActivity(this, id!!)
-        })
+        }.also {
+            compositeDisposable.add(it)
+        }
     }
 
     private fun showLoading() {
@@ -65,7 +66,7 @@ class NoteListActivity : BaseActivity() {
         errorView.visibility = View.GONE
     }
 
-    private fun showNotes(data: List<NoteModel>) {
+    private fun showNotes(data: List<Note>) {
         errorView.visibility = View.GONE
         recyclerView.visibility = View.VISIBLE
         adapter.setItems(data)

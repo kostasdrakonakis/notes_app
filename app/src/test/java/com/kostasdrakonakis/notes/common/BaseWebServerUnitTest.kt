@@ -1,34 +1,21 @@
-package com.kostasdrakonakis.notes
+package com.kostasdrakonakis.notes.common
 
-import com.kostasdrakonakis.notes.di.serviceModule
-import com.kostasdrakonakis.notes.di.testManagersModule
-import com.kostasdrakonakis.notes.di.testNetworkModule
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
-import org.junit.After
-import org.junit.Before
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
-import org.koin.core.context.startKoin
-import org.koin.core.context.stopKoin
-import org.koin.test.KoinTest
 import org.koin.test.inject
 
-@RunWith(JUnit4::class)
-open class BaseUnitTest : KoinTest {
+open class BaseWebServerUnitTest : BaseUnitTest() {
     private val mockWebServer by inject<MockWebServer>()
 
-    @Before
-    open fun setUp() {
-        startKoin { modules(arrayListOf(testNetworkModule, testManagersModule, serviceModule)) }
+    override fun setUp() {
+        super.setUp()
         mockWebServer.start()
     }
 
-    @After
-    open fun tearDown() {
+    override fun tearDown() {
+        super.tearDown()
         mockWebServer.shutdown()
-        stopKoin()
     }
 
     protected fun enqueue(response: MockResponse) {

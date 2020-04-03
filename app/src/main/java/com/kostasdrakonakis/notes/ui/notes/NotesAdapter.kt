@@ -5,13 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.kostasdrakonakis.notes.android.adapter.BaseAdapter
-import com.kostasdrakonakis.notes.model.NoteModel
+import com.kostasdrakonakis.notes.network.model.Note
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 
-class NotesAdapter : BaseAdapter<NoteModel, View>() {
+class NotesAdapter : BaseAdapter<Note, View>() {
 
-    private val noteSubject: PublishSubject<Int> = PublishSubject.create()
+    private val noteSubject = PublishSubject.create<Int>()
 
     val noteId: Observable<Int> = noteSubject
 
@@ -24,7 +24,7 @@ class NotesAdapter : BaseAdapter<NoteModel, View>() {
 
     override fun onBindViewHolder(holder: BaseViewHolder<View>, position: Int) {
         val textView: TextView = holder.itemView.findViewById(android.R.id.text1)
-        val model: NoteModel? = getItem(position)
+        val model: Note? = getItem(position)
 
         textView.text = model?.title
         val noteItemId: Int = if (model == null) {
