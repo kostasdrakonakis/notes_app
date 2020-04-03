@@ -9,6 +9,8 @@ import com.github.kostasdrakonakis.annotation.IntentProperty
 import com.github.kostasdrakonakis.annotation.IntentType
 import com.kostasdrakonakis.notes.R
 import com.kostasdrakonakis.notes.android.activity.BaseActivity
+import com.kostasdrakonakis.notes.extensions.observe
+import com.kostasdrakonakis.notes.model.State
 
 @Intent(value = [IntentExtra(type = IntentType.INT, parameter = "noteId")])
 class NoteActivity : BaseActivity() {
@@ -24,11 +26,21 @@ class NoteActivity : BaseActivity() {
         setContentView(R.layout.activity_note)
         IntentNavigatorBinder.bind(this)
         lifecycle.addObserver(noteViewModel)
+        observe(noteViewModel.noteState, { state ->
+            when (state.currentState) {
+                State.LOADING.value -> showLoading()
+                State.SUCCESS.value -> showText(state.data?.title)
+                State.FAILED.value -> showError(state.error?.message)
+            }
+        })
     }
 
-    fun showText(text: String?) {
+    private fun showLoading() {
     }
 
-    fun showError(message: String?) {
+    private fun showText(text: String?) {
+    }
+
+    private fun showError(message: String?) {
     }
 }

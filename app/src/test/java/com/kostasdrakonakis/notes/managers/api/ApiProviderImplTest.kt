@@ -1,7 +1,7 @@
 package com.kostasdrakonakis.notes.managers.api
 
 import com.google.common.truth.Truth.assertThat
-import com.kostasdrakonakis.notes.BaseUnitTest
+import com.kostasdrakonakis.notes.common.BaseUnitTest
 import com.kostasdrakonakis.notes.network.api.NotesApi
 import org.junit.Test
 import org.koin.test.inject

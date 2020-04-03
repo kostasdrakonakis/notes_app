@@ -6,7 +6,7 @@ import io.reactivex.disposables.CompositeDisposable
 import org.slf4j.Logger
 
 abstract class BaseActivity: AppCompatActivity() {
-    protected val logger: Logger = LogUtil.getLogger<BaseActivity>()
+    protected val logger: Logger = LogUtil.logger<BaseActivity>()
     protected val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onStop() {

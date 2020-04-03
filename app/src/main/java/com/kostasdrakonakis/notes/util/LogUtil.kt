@@ -1,7 +1,6 @@
 package com.kostasdrakonakis.notes.util
 
 import com.kostasdrakonakis.notes.logger.NoteLogger
-import org.slf4j.Logger
 
 object LogUtil {
 
@@ -9,7 +8,7 @@ object LogUtil {
         NoteLogger.init()
     }
 
-    inline fun <reified T> getLogger(): Logger {
+    inline fun <reified T> logger(): NoteLogger {
         return NoteLogger.getInstance(T::class.java)
     }
 }

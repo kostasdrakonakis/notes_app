@@ -1,13 +1,13 @@
 package com.kostasdrakonakis.notes.managers.note
 
 import com.google.common.truth.Truth.assertThat
-import com.kostasdrakonakis.notes.BaseUnitTest
+import com.kostasdrakonakis.notes.common.BaseWebServerUnitTest
 import okhttp3.mockwebserver.MockResponse
 import org.junit.Test
 import org.koin.core.qualifier.named
 import org.koin.test.inject
 
-class NoteManagerImplTest : BaseUnitTest() {
+class NoteManagerImplTest : BaseWebServerUnitTest() {
 
     private val noteManager by inject<NoteManager>()
     private val listResponse by inject<MockResponse>(named(LIST_RESPONSE))

@@ -45,6 +45,8 @@ ext {
     extJunit = '1.1.1'
     extTruth = '1.2.0'
     truth = '1.0.1'
+    archTesting = '2.1.0'
+    mockK = '1.9.3'
 
 
     //Development
@@ -119,7 +121,7 @@ ext {
             mockitoCore          : "org.mockito:mockito-core:$mockito",
             mockitoInline        : "org.mockito:mockito-inline:$mockitoInline",
             festAssert           : "org.easytesting:fest-assert:$festAssert",
-            robolectric          : "org.robolectric:robolectric:$robolectric",
+            mockK             : "io.mockk:mockk:$mockK",
             powerMock            : "org.powermock:powermock-api-easymock:$powerMock",
             powerMockRule        : "org.powermock:powermock-module-junit4-rule:$powerMock",
             powerMockClassLoading: "org.powermock:powermock-classloading-xstream:$powerMock",
@@ -131,6 +133,7 @@ ext {
             extJunit          : "androidx.test.ext:junit:$extJunit",
             extTruth          : "androidx.test.ext:truth:$extTruth",
             truth             : "com.google.truth:truth:$truth",
+            archTest          : "androidx.arch.core:core-testing:$archTesting",
             espressoCore      : "androidx.test.espresso:espresso-core:$espresso",
             espressoIntents   : "androidx.test.espresso:espresso-intents:$espresso",
             androidAnnotations: "androidx.annotation:annotation:$androidAnnotations"

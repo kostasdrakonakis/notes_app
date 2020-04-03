@@ -111,7 +111,15 @@ dependencies {
     // Test
     testImplementation unitTesting.kotlinTest
     testImplementation unitTesting.junit
+    testImplementation unitTesting.mockitoCore
+    testImplementation unitTesting.mockitoInline
+    testImplementation unitTesting.kotlinMockito
+    testImplementation unitTesting.robolectric
+    testImplementation unitTesting.junit
     testImplementation unitTesting.koinTest
     testImplementation thirdParty.mockWebServer
     testImplementation instrumentationTesting.truth
+    testImplementation instrumentationTesting.archTest
+    testImplementation instrumentationTesting.extTruth
+    testImplementation instrumentationTesting.extJunit
 }

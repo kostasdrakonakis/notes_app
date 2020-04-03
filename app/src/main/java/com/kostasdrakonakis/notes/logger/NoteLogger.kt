@@ -1,5 +1,6 @@
 package com.kostasdrakonakis.notes.logger
 
+import androidx.annotation.VisibleForTesting
 import com.kostasdrakonakis.notes.BuildConfig
 import com.kostasdrakonakis.notes.extensions.debug
 import org.slf4j.Logger
@@ -20,6 +21,10 @@ class NoteLogger constructor(private val cls: Class<*>) : MarkerIgnoringBase(), 
         fun getInstance(cls: Class<*>): NoteLogger {
             return NoteLogger(cls)
         }
+    }
+
+    override fun getName(): String {
+        return cls.simpleName
     }
 
     override fun isErrorEnabled(): Boolean {
@@ -140,9 +145,9 @@ class NoteLogger constructor(private val cls: Class<*>) : MarkerIgnoringBase(), 
     override fun debug(message: String, throwable: Throwable?) {
         tag()
         if (throwable == null) {
-            Timber.w(message)
+            Timber.d(message)
         } else {
-            Timber.w(throwable, message)
+            Timber.d(throwable, message)
         }
     }
 
@@ -199,6 +204,21 @@ class NoteLogger constructor(private val cls: Class<*>) : MarkerIgnoringBase(), 
             Timber.e(message)
         } else {
             Timber.e(throwable, message)
+        }
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+    fun assert(message: String) {
+        assert(message, null as Throwable?)
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+    fun assert(message: String, throwable: Throwable?) {
+        tag()
+        if (throwable == null) {
+            Timber.wtf(message)
+        } else {
+            Timber.wtf(throwable, message)
         }
     }
 
