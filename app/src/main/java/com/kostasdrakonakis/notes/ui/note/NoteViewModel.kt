@@ -2,6 +2,7 @@ package com.kostasdrakonakis.notes.ui.note
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.kostasdrakonakis.notes.extensions.setSchedulers
@@ -11,7 +12,8 @@ import com.kostasdrakonakis.notes.network.model.Note
 import com.kostasdrakonakis.notes.ui.BaseViewModel
 
 class NoteViewModel() : BaseViewModel() {
-    val noteState: MutableLiveData<NoteState> = MutableLiveData()
+    private val liveDataState: MutableLiveData<NoteState> = MutableLiveData()
+    val noteState: LiveData<NoteState> get() = liveDataState
     private lateinit var testNoteManager: NoteManager
 
     @VisibleForTesting
@@ -41,16 +43,16 @@ class NoteViewModel() : BaseViewModel() {
     }
 
     private fun onLoading() {
-        noteState.postValue(NoteState.LOADING_STATE)
+        liveDataState.postValue(NoteState.LOADING_STATE)
     }
 
     private fun onSuccess(note: Note?) {
         NoteState.SUCCESS_STATE.data = note
-        noteState.postValue(NoteState.SUCCESS_STATE)
+        liveDataState.postValue(NoteState.SUCCESS_STATE)
     }
 
     private fun onError(error: Throwable?) {
         NoteState.ERROR_STATE.error = error
-        noteState.postValue(NoteState.ERROR_STATE)
+        liveDataState.postValue(NoteState.ERROR_STATE)
     }
 }

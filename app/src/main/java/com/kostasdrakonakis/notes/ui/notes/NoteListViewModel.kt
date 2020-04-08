@@ -2,6 +2,7 @@ package com.kostasdrakonakis.notes.ui.notes
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.OnLifecycleEvent
 import com.kostasdrakonakis.notes.extensions.setSchedulers
@@ -13,8 +14,10 @@ import com.kostasdrakonakis.notes.ui.BaseViewModel
 
 class NoteListViewModel() : BaseViewModel() {
 
-    val noteListState: MutableLiveData<NoteListState> = MutableLiveData()
-    val createNoteState: MutableLiveData<CreateNoteState> = MutableLiveData()
+    private val liveDataNoteListState = MutableLiveData<NoteListState>()
+    private var liveDataCreateNoteState = MutableLiveData<CreateNoteState>()
+    val noteListState: LiveData<NoteListState> get() = liveDataNoteListState
+    val createNoteState: LiveData<CreateNoteState> get() = liveDataCreateNoteState
     private lateinit var testNoteManager: NoteManager
 
     @VisibleForTesting
@@ -64,30 +67,30 @@ class NoteListViewModel() : BaseViewModel() {
     }
 
     private fun onLoading() {
-        noteListState.postValue(NoteListState.LOADING_STATE)
+        liveDataNoteListState.postValue(NoteListState.LOADING_STATE)
     }
 
     private fun onNoteLoading() {
-        createNoteState.postValue(CreateNoteState.LOADING_STATE)
+        liveDataCreateNoteState.postValue(CreateNoteState.LOADING_STATE)
     }
 
     private fun onSuccess(notes: List<Note>?) {
         NoteListState.SUCCESS_STATE.data = notes
-        noteListState.postValue(NoteListState.SUCCESS_STATE)
+        liveDataNoteListState.postValue(NoteListState.SUCCESS_STATE)
     }
 
     private fun onSuccess(note: Note?) {
         CreateNoteState.SUCCESS_STATE.data = note
-        createNoteState.postValue(CreateNoteState.SUCCESS_STATE)
+        liveDataCreateNoteState.postValue(CreateNoteState.SUCCESS_STATE)
     }
 
     private fun onError(error: Throwable?) {
         CreateNoteState.ERROR_STATE.error = error
-        createNoteState.postValue(CreateNoteState.ERROR_STATE)
+        liveDataCreateNoteState.postValue(CreateNoteState.ERROR_STATE)
     }
 
     private fun onListError(error: Throwable?) {
         NoteListState.ERROR_STATE.error = error
-        noteListState.postValue(NoteListState.ERROR_STATE)
+        liveDataNoteListState.postValue(NoteListState.ERROR_STATE)
     }
 }
