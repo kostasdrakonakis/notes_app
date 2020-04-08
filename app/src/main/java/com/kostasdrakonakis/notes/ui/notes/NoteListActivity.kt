@@ -23,30 +23,30 @@ import kotlinx.android.synthetic.main.create_note.view.*
 class NoteListActivity : BaseActivity() {
 
     private val adapter: NotesAdapter by lazy { NotesAdapter() }
-    private val noteListViewModel: NoteListViewModel by viewModels()
+    private val viewModel: NoteListViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes_list)
-        lifecycle.addObserver(noteListViewModel)
-        observe(noteListViewModel.noteListState, { state ->
+        lifecycle.addObserver(viewModel)
+        observe(viewModel.noteListState, { state ->
             when (state.currentState) {
-                State.LOADING.value -> showLoading()
-                State.SUCCESS.value -> showNotes(state.data!!)
-                State.FAILED.value -> showError(state.error?.message)
+                State.LOADING -> showLoading()
+                State.SUCCESS -> showNotes(state.data!!)
+                State.FAILED -> showError(state.error?.message)
             }
         })
-        observe(noteListViewModel.createNoteState, { state ->
-            when (state?.currentState) {
-                State.LOADING.value -> showLoading()
-                State.SUCCESS.value -> {
+        observe(viewModel.createNoteState, { state ->
+            when (state.currentState) {
+                State.LOADING -> showLoading()
+                State.SUCCESS -> {
                     Toast.makeText(
                         this,
                         getString(R.string.note_status_message) + state.data?.title,
                         Toast.LENGTH_SHORT
                     ).show()
                 }
-                State.FAILED.value -> showError(state.error?.message)
+                State.FAILED -> showError(state.error?.message)
             }
         })
         recyclerView.layoutManager = LinearLayoutManager(this, VERTICAL, false)
@@ -88,7 +88,7 @@ class NoteListActivity : BaseActivity() {
         builder.setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
         builder.setPositiveButton(R.string.create) { _, _ ->
             run {
-                noteListViewModel.createNote(view.inputText.stringText())
+                viewModel.createNote(view.inputText.stringText())
             }
         }
         val dialog = builder.create()

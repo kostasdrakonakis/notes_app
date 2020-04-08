@@ -28,9 +28,9 @@ class NoteActivity : BaseActivity() {
         lifecycle.addObserver(noteViewModel)
         observe(noteViewModel.noteState, { state ->
             when (state.currentState) {
-                State.LOADING.value -> showLoading()
-                State.SUCCESS.value -> showText(state.data?.title)
-                State.FAILED.value -> showError(state.error?.message)
+                State.LOADING -> showLoading()
+                State.SUCCESS -> showText(state.data?.title)
+                State.FAILED -> showError(state.error?.message)
             }
         })
     }
