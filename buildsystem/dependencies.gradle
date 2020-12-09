@@ -23,9 +23,9 @@ ext {
     timber = '4.7.1'
     slf4j = '1.7.25'
     intents = '1.2.5'
-    retrofit = '2.6.0'
-    loggingInterceptor = '4.0.0'
-    okHttpVersion = '4.4.0'
+    retrofit = '2.9.0'
+    loggingInterceptor = '4.9.0'
+    okHttpVersion = '4.9.0'
     gson = '2.8.5'
     rxJava = '2.2.10'
     rxAndroid = '2.1.1'
@@ -114,14 +114,14 @@ ext {
     unitTesting = [
             kotlinTest           : "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version",
             koinTest             : "org.koin:koin-test:$koin",
-            robolectric          : "org.robolectric:robolectric:$robolectric",
             junit                : "junit:junit:$junit",
-            kotlinMockito        : "com.nhaarman.mockitokotlin2:mockito-kotlin:$kotlinMockito",
             mockito              : "org.mockito:mockito-android:$mockito",
+            robolectric          : "org.robolectric:robolectric:$robolectric",
+            kotlinMockito        : "com.nhaarman.mockitokotlin2:mockito-kotlin:$kotlinMockito",
             mockitoCore          : "org.mockito:mockito-core:$mockito",
             mockitoInline        : "org.mockito:mockito-inline:$mockitoInline",
             festAssert           : "org.easytesting:fest-assert:$festAssert",
-            mockK             : "io.mockk:mockk:$mockK",
+            mockK                : "io.mockk:mockk:$mockK",
             powerMock            : "org.powermock:powermock-api-easymock:$powerMock",
             powerMockRule        : "org.powermock:powermock-module-junit4-rule:$powerMock",
             powerMockClassLoading: "org.powermock:powermock-classloading-xstream:$powerMock",

@@ -12,7 +12,7 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 
 @RunWith(JUnit4::class)
-open class BaseUnitTest : KoinTest {
+abstract class BaseUnitTest : KoinTest {
 
     @Before
     open fun setUp() {

@@ -10,7 +10,7 @@ import org.junit.Rule
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
-open class BaseViewModelUnitTest: BaseUnitTest() {
+abstract class BaseViewModelUnitTest: BaseUnitTest() {
     @get:Rule
     val instantRule = InstantTaskExecutorRule()
     @get:Rule

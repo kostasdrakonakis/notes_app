@@ -5,7 +5,7 @@ import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
 import org.koin.test.inject
 
-open class BaseWebServerUnitTest : BaseUnitTest() {
+abstract class BaseWebServerUnitTest : BaseUnitTest() {
     private val mockWebServer by inject<MockWebServer>()
 
     override fun setUp() {
