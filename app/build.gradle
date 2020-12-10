@@ -57,7 +57,6 @@ dependencies {
     def unitTesting = rootProject.ext.unitTesting
     def instrumentationTesting = rootProject.ext.instrumentationTesting
 
-    implementation ktx.kotlinExtensions
     implementation android.appCompat
     implementation android.coreKtx
     implementation android.fragmentKtx

@@ -5,7 +5,7 @@ import com.google.common.truth.Truth.assertThat
 import org.robolectric.shadows.ShadowLog
 
 class LogAssert(private val items: List<ShadowLog.LogItem>) {
-    private var index: Int = 2
+    private var index: Int = 1
 
     fun hasVerboseMessage(tag: String, message: String): LogAssert {
         return hasMessage(Log.VERBOSE, tag, message)
