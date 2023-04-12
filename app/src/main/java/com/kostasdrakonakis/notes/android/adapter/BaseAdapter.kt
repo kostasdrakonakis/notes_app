@@ -1,8 +1,13 @@
 package com.kostasdrakonakis.notes.android.adapter
 
+import android.annotation.SuppressLint
 import android.os.Handler
 import android.view.View
+import androidx.concurrent.futures.DirectExecutor
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import java.util.concurrent.Executor
+import java.util.concurrent.Executors
 
 abstract class BaseAdapter<T, V : View> : RecyclerView.Adapter<BaseAdapter.BaseViewHolder<V>>() {
 
@@ -12,9 +17,11 @@ abstract class BaseAdapter<T, V : View> : RecyclerView.Adapter<BaseAdapter.BaseV
         return items?.size ?: 0
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setItems(items: List<T>) {
         this.items = items
-        Handler().post { notifyDataSetChanged() }
+        val executor = Executors.newSingleThreadScheduledExecutor()
+        executor.execute { notifyDataSetChanged() }
     }
 
     fun getItem(position: Int): T? {
@@ -25,12 +32,13 @@ abstract class BaseAdapter<T, V : View> : RecyclerView.Adapter<BaseAdapter.BaseV
         return items?.indexOf(item)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun notifyItemChanged(item: T) {
         val position = getItemPosition(item)
         if (position != null) {
             if (position >= 0) {
-                // Notify item changed in the next cycle of the main thread
-                Handler().post { notifyItemChanged(position) }
+                val executor = Executors.newSingleThreadScheduledExecutor()
+                executor.execute { notifyDataSetChanged() }
             }
         }
     }

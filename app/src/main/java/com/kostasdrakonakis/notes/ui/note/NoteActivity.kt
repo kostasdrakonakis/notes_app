@@ -26,21 +26,23 @@ class NoteActivity : BaseActivity() {
         setContentView(R.layout.activity_note)
         IntentNavigatorBinder.bind(this)
         lifecycle.addObserver(noteViewModel)
-        observe(noteViewModel.noteState, { state ->
+        observe(noteViewModel.noteState) { state ->
             when (state.currentState) {
                 State.LOADING -> showLoading()
                 State.SUCCESS -> showText(state.data?.title)
                 State.FAILED -> showError(state.error?.message)
             }
-        })
+        }
     }
 
     private fun showLoading() {
     }
 
     private fun showText(text: String?) {
+        logger.debug("Text is: $text")
     }
 
     private fun showError(message: String?) {
+        logger.debug("Message is: $message")
     }
 }

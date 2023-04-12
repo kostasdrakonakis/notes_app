@@ -3,12 +3,16 @@ package com.kostasdrakonakis.notes.ui.notes
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
 import com.github.kostasdrakonakis.androidnavigator.IntentNavigator
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputEditText
 import com.kostasdrakonakis.notes.R
 import com.kostasdrakonakis.notes.android.activity.BaseActivity
 import com.kostasdrakonakis.notes.extensions.asObservable
@@ -17,26 +21,30 @@ import com.kostasdrakonakis.notes.extensions.setSchedulers
 import com.kostasdrakonakis.notes.extensions.stringText
 import com.kostasdrakonakis.notes.model.State
 import com.kostasdrakonakis.notes.network.model.Note
-import kotlinx.android.synthetic.main.activity_notes_list.*
-import kotlinx.android.synthetic.main.create_note.view.*
 
 class NoteListActivity : BaseActivity() {
 
     private val adapter: NotesAdapter by lazy { NotesAdapter() }
     private val viewModel: NoteListViewModel by viewModels()
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var createButton: FloatingActionButton
+    private lateinit var errorView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notes_list)
+        recyclerView = findViewById(R.id.recyclerView)
+        createButton = findViewById(R.id.createButton)
+        errorView = findViewById(R.id.errorView)
         lifecycle.addObserver(viewModel)
-        observe(viewModel.noteListState, { state ->
+        observe(viewModel.noteListState) { state ->
             when (state.currentState) {
                 State.LOADING -> showLoading()
                 State.SUCCESS -> showNotes(state.data!!)
                 State.FAILED -> showError(state.error?.message)
             }
-        })
-        observe(viewModel.createNoteState, { state ->
+        }
+        observe(viewModel.createNoteState) { state ->
             when (state.currentState) {
                 State.LOADING -> showLoading()
                 State.SUCCESS -> {
@@ -48,7 +56,7 @@ class NoteListActivity : BaseActivity() {
                 }
                 State.FAILED -> showError(state.error?.message)
             }
-        })
+        }
         recyclerView.layoutManager = LinearLayoutManager(this, VERTICAL, false)
         recyclerView.adapter = adapter
         createButton.setOnClickListener {
@@ -88,14 +96,14 @@ class NoteListActivity : BaseActivity() {
         builder.setNegativeButton(R.string.cancel) { dialog, _ -> dialog.dismiss() }
         builder.setPositiveButton(R.string.create) { _, _ ->
             run {
-                viewModel.createNote(view.inputText.stringText())
+                viewModel.createNote(view.findViewById<TextInputEditText>(R.id.inputText).stringText())
             }
         }
         val dialog = builder.create()
         dialog.show()
         val positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE)
         positiveButton.isEnabled = false
-        compositeDisposable.add(view.inputText.asObservable()
+        compositeDisposable.add(view.findViewById<TextInputEditText>(R.id.inputText).asObservable()
             .setSchedulers()
             .subscribe { text: String? ->
                 positiveButton.isEnabled = !text.isNullOrEmpty()

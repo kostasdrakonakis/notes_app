@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.kostasdrakonakis.notes.logger
 
 import androidx.annotation.VisibleForTesting
@@ -8,6 +10,7 @@ import org.slf4j.Marker
 import org.slf4j.helpers.MarkerIgnoringBase
 import timber.log.Timber
 
+@Suppress("DEPRECATION")
 class NoteLogger constructor(private val cls: Class<*>) : MarkerIgnoringBase(), Logger {
 
     companion object {

@@ -1,10 +1,7 @@
 package com.kostasdrakonakis.notes.ui.notes
 
 import androidx.annotation.VisibleForTesting
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.OnLifecycleEvent
+import androidx.lifecycle.*
 import com.kostasdrakonakis.notes.extensions.setSchedulers
 import com.kostasdrakonakis.notes.managers.note.NoteManager
 import com.kostasdrakonakis.notes.model.CreateNoteState
@@ -12,7 +9,7 @@ import com.kostasdrakonakis.notes.model.NoteListState
 import com.kostasdrakonakis.notes.network.model.Note
 import com.kostasdrakonakis.notes.ui.BaseViewModel
 
-class NoteListViewModel() : BaseViewModel() {
+class NoteListViewModel() : BaseViewModel(), DefaultLifecycleObserver {
 
     private val liveDataNoteListState = MutableLiveData<NoteListState>()
     private var liveDataCreateNoteState = MutableLiveData<CreateNoteState>()
@@ -55,8 +52,8 @@ class NoteListViewModel() : BaseViewModel() {
             }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_START)
-    fun fetchRealData() {
+    override fun onStart(owner: LifecycleOwner) {
+        super.onStart(owner)
         noteManager.getNotes()
             .doOnSubscribe { onLoading() }
             .setSchedulers()

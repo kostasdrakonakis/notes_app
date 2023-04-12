@@ -20,11 +20,11 @@ val networkModule = module {
     }
 
     single {
-        val loggingInterceptor = get<Interceptor?>()
+        val loggingInterceptor = get<Interceptor>()
         val httpClientBuilder = OkHttpClient().newBuilder()
         httpClientBuilder.connectTimeout(5000L, TimeUnit.MILLISECONDS)
         httpClientBuilder.readTimeout(3000L, TimeUnit.MILLISECONDS)
-        if (loggingInterceptor != null) httpClientBuilder.addInterceptor(loggingInterceptor)
+        httpClientBuilder.addInterceptor(loggingInterceptor)
         return@single httpClientBuilder.build()
     }
 

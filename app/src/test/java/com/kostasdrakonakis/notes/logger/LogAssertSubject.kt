@@ -16,7 +16,7 @@ class LogAssertSubject(
     private val items: List<ShadowLog.LogItem>
 ) : Subject(metadata, actual) {
 
-    private var index: Int = 1
+    private var index: Int = 0
 
     fun hasVerboseMessage(tag: String, message: String): LogAssertSubject {
         return hasMessage(Log.VERBOSE, tag, message)

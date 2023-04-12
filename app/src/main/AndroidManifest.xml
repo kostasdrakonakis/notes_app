@@ -16,7 +16,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".ui.note.NoteActivity" />
-        <activity android:name=".ui.notes.NoteListActivity">
+        <activity android:name=".ui.notes.NoteListActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
