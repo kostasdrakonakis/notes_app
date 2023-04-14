@@ -103,7 +103,7 @@ class LogAssertSubject(
     }
 
     fun isErrorEnabled() {
-        assertThat(actual?.isErrorEnabled).isEqualTo(BuildConfig.DEBUG)
+        assertThat(actual?.isErrorEnabled).isEqualTo(true)
     }
 
     fun isTraceEnabled() {
@@ -115,7 +115,7 @@ class LogAssertSubject(
     }
 
     fun isWarnEnabled() {
-        assertThat(actual?.isWarnEnabled).isEqualTo(BuildConfig.DEBUG)
+        assertThat(actual?.isWarnEnabled).isEqualTo(true)
     }
 
     fun hasNameEqualTo(name: String) {

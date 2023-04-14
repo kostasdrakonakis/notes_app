@@ -1,9 +1,11 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.adarshr.test-logger'
 
 def androidConfig = rootProject.ext.androidConfig
 android {
+    namespace = "com.kostasdrakonakis.notes"
     signingConfigs {
         release {
             storeFile = keystoreFilePath()
@@ -46,6 +48,26 @@ android {
 
     lintOptions {
         abortOnError false
+    }
+
+    testlogger {
+        theme 'standard'
+        showExceptions true
+        showStackTraces true
+        showFullStackTraces false
+        showCauses true
+        slowThreshold 2000
+        showSummary true
+        showSimpleNames false
+        showPassed true
+        showSkipped true
+        showFailed true
+        showOnlySlow false
+        showStandardStreams false
+        showPassedStandardStreams true
+        showSkippedStandardStreams true
+        showFailedStandardStreams true
+        logLevel 'lifecycle'
     }
 }
 

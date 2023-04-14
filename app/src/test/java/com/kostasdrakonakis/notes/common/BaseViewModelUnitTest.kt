@@ -23,7 +23,7 @@ abstract class BaseViewModelUnitTest: BaseUnitTest() {
 
     override fun setUp() {
         super.setUp()
-        MockitoAnnotations.initMocks(this)
+        MockitoAnnotations.openMocks(this)
         lifecycle = LifecycleRegistry(lifecycleOwner)
     }
 }
