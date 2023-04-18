@@ -1,1 +1,1 @@
-# Simple Notes app developed in Kotlin
+# Simple Notes app developed in Kotlin [![Build](https://github.com/kostasdrakonakis/notes_app/actions/workflows/android.yml/badge.svg?branch=master)](https://github.com/kostasdrakonakis/notes_app/actions/workflows/android.yml)
