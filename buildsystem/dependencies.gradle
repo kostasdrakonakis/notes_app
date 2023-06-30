@@ -2,7 +2,7 @@ ext {
     //Android libraries
     appCompat = '1.6.1'
     kotlinKtx = '1.10.1'
-    fragmentKtx = '1.5.7'
+    fragmentKtx = '1.6.0'
     koin = '3.4.1'
     recyclerView = '1.3.0'
     lifecycle = '2.6.1'
@@ -28,12 +28,12 @@ ext {
     //Unit Testing
     robolectric = '4.10.3'
     junit = '4.13.2'
-    mockito = '5.3.1'
+    mockito = '5.4.0'
     kotlinMockito = '2.2.0'
     mockitoInline = '5.2.0'
     extJunit = '1.1.5'
     extTruth = '1.5.0'
-    truth = '1.1.4'
+    truth = '1.1.5'
     archTesting = '2.2.0'
 
     ktx = [
