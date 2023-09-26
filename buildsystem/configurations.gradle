@@ -2,7 +2,7 @@ ext {
     androidConfig = [
             minSdkVersion    : 23,
             targetSdkVersion : 33,
-            compileSdkVersion: 33
+            compileSdkVersion: 34
     ]
 
     environments = [
