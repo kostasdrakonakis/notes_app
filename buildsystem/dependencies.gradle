@@ -28,7 +28,7 @@ ext {
     //Unit Testing
     robolectric = '4.10.3'
     junit = '4.13.2'
-    mockito = '5.5.0'
+    mockito = '5.6.0'
     kotlinMockito = '2.2.0'
     mockitoInline = '5.2.0'
     extJunit = '1.1.5'
