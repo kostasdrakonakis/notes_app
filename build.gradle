@@ -6,7 +6,7 @@ apply from: 'buildsystem/signing.gradle'
 
 buildscript {
     ext {
-        kotlin_version = '1.9.21'
+        kotlin_version = '1.9.22'
     }
     repositories {
         google()
