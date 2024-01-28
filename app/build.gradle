@@ -21,7 +21,7 @@ android {
         }
     }
 
-    compileSdkVersion androidConfig.compileSdkVersion
+    compileSdk androidConfig.compileSdkVersion
     defaultConfig {
         applicationId "com.kostasdrakonakis.notes"
         minSdkVersion androidConfig.minSdkVersion
