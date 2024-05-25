@@ -3,7 +3,7 @@ ext {
     appCompat = '1.6.1'
     kotlinKtx = '1.13.1'
     koin = '3.5.0'
-    fragmentKtx = '1.6.2'
+    fragmentKtx = '1.7.1'
     recyclerView = '1.3.2'
     lifecycle = '2.6.2'
     lifecycleExt = '2.2.0'
