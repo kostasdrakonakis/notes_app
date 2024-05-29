@@ -15,7 +15,7 @@ ext {
 
     //Third party libraries
     timber = '5.0.1'
-    slf4j = '2.0.12'
+    slf4j = '2.0.13'
     intents = '1.2.6'
     retrofit = '2.11.0'
     loggingInterceptor = '4.12.0'
