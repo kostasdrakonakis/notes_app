@@ -1,6 +1,6 @@
 ext {
     //Android libraries
-    appCompat = '1.6.1'
+    appCompat = '1.7.0'
     kotlinKtx = '1.13.1'
     koin = '3.5.6'
     fragmentKtx = '1.7.1'
