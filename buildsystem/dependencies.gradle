@@ -26,7 +26,7 @@ ext {
     picasso = '2.71828'
 
     //Unit Testing
-    robolectric = '4.12.2'
+    robolectric = '4.13'
     junit = '4.13.2'
     mockito = '5.12.0'
     kotlinMockito = '2.2.0'
